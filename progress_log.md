@@ -5,6 +5,16 @@
 - Confirmed app concept after tutor discussion.
 - Decided the app will use guided input, not just a text box.
 - Planned main UI features: source selector, suspicion tags, text input, paste button, try example, and analyse button.
+- Added initial main screen layout.
+- Connected local Git project to public GitHub repository.
+- Pushed first two commits successfully.
+- Verified version history and remote origin.
+- Included title, source selector, message input area, and analyse button.
 
 ### Next step
-Build the main screen UI.
+Add suspicion tags and helper actions to the main screen.
+
+## 19 March 2026
+- Committed and pushed the updated main UI to GitHub with the commit: "Add suspicion tags and helper actions to main screen".
+- Verified the project history and remote repository.
+- Prepared for the next stage: building the results screen with risk level, scam type, red flags, and safe action guidance.
