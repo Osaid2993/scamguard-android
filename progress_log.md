@@ -15,6 +15,20 @@
 Add suspicion tags and helper actions to the main screen.
 
 ## 19 March 2026
-- Committed and pushed the updated main UI to GitHub with the commit: "Add suspicion tags and helper actions to main screen".
+- Committed and pushed the updated main UI to GitHub with the commit: "Ad## 20 March 2026
+- Created the results screen layout for ScamGuard.
+- Added sections for risk level, scam type, red flags, and safe action guidance.
+- Added ResultsActivity and registered it in the Android manifest.
+
+### Next step
+Connect navigation from the main screen to the results screen.d suspicion tags and helper actions to main screen".
 - Verified the project history and remote repository.
 - Prepared for the next stage: building the results screen with risk level, scam type, red flags, and safe action guidance.
+
+## 23 March 2026
+- Created the results screen layout for ScamGuard.
+- Added sections for risk level, scam type, red flags, and safe action guidance.
+- Added ResultsActivity and registered it in the Android manifest.
+
+### Next step
+Connect navigation from the main screen to the results screen.
