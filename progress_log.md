@@ -31,4 +31,4 @@ Connect navigation from the main screen to the results screen.d suspicion tags a
 - Added ResultsActivity and registered it in the Android manifest.
 
 ### Next step
-Connect navigation from the main screen to the results screen.
+make the results dynamic instead of hardcoded.
