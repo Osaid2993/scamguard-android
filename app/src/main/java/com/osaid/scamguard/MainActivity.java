@@ -5,12 +5,17 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.chip.Chip;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -22,6 +27,17 @@ public class MainActivity extends AppCompatActivity {
         Button pasteClipboardButton = findViewById(R.id.pasteClipboardButton);
         Button tryExampleButton = findViewById(R.id.tryExampleButton);
         EditText messageEditText = findViewById(R.id.messageEditText);
+
+        RadioGroup sourceGroup = findViewById(R.id.sourceGroup);
+        RadioButton radioSms = findViewById(R.id.radioSms);
+        RadioButton radioEmail = findViewById(R.id.radioEmail);
+        RadioButton radioSocial = findViewById(R.id.radioSocial);
+
+        Chip chipUrgent = findViewById(R.id.chipUrgent);
+        Chip chipLink = findViewById(R.id.chipLink);
+        Chip chipMoney = findViewById(R.id.chipMoney);
+        Chip chipOtp = findViewById(R.id.chipOtp);
+        Chip chipUnknown = findViewById(R.id.chipUnknown);
 
         pasteClipboardButton.setOnClickListener(v -> {
             ClipboardManager clipboard =
@@ -54,8 +70,30 @@ public class MainActivity extends AppCompatActivity {
         analyzeButton.setOnClickListener(v -> {
             String message = messageEditText.getText().toString().trim();
 
+            String source = "Unknown";
+            int selectedSourceId = sourceGroup.getCheckedRadioButtonId();
+            if (selectedSourceId != -1) {
+                if (radioSms.isChecked()) {
+                    source = "SMS";
+                } else if (radioEmail.isChecked()) {
+                    source = "Email";
+                } else if (radioSocial.isChecked()) {
+                    source = "Social Media";
+                }
+            }
+
+            ArrayList<String> selectedConcerns = new ArrayList<>();
+
+            if (chipUrgent.isChecked()) selectedConcerns.add("Urgent");
+            if (chipLink.isChecked()) selectedConcerns.add("Contains Link");
+            if (chipMoney.isChecked()) selectedConcerns.add("Asks for Money");
+            if (chipOtp.isChecked()) selectedConcerns.add("Requests OTP");
+            if (chipUnknown.isChecked()) selectedConcerns.add("Unknown Sender");
+
             Intent intent = new Intent(MainActivity.this, ResultsActivity.class);
             intent.putExtra("message_text", message);
+            intent.putExtra("message_source", source);
+            intent.putStringArrayListExtra("selected_concerns", selectedConcerns);
             startActivity(intent);
         });
     }

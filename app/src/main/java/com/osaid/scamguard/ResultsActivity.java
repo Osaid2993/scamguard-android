@@ -3,10 +3,15 @@ package com.osaid.scamguard;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
 
 public class ResultsActivity extends AppCompatActivity {
 
+    private TextView sourceTextView;
+    private TextView concernsTextView;
     private TextView riskLevelTextView;
     private TextView scamTypeTextView;
     private TextView redFlagsTextView;
@@ -17,6 +22,8 @@ public class ResultsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
 
+        sourceTextView = findViewById(R.id.sourceTextView);
+        concernsTextView = findViewById(R.id.concernsTextView);
         riskLevelTextView = findViewById(R.id.riskLevelTextView);
         scamTypeTextView = findViewById(R.id.scamTypeTextView);
         redFlagsTextView = findViewById(R.id.redFlagsTextView);
@@ -26,14 +33,24 @@ public class ResultsActivity extends AppCompatActivity {
         backButton.setOnClickListener(v -> finish());
 
         String message = getIntent().getStringExtra("message_text");
-        if (message == null) {
-            message = "";
+        String source = getIntent().getStringExtra("message_source");
+        ArrayList<String> concerns = getIntent().getStringArrayListExtra("selected_concerns");
+
+        if (message == null) message = "";
+        if (source == null) source = "Unknown";
+
+        sourceTextView.setText(source);
+
+        if (concerns == null || concerns.isEmpty()) {
+            concernsTextView.setText("None selected");
+        } else {
+            concernsTextView.setText(String.join(", ", concerns));
         }
 
-        analyzeMessage(message);
+        analyzeMessage(message, source, concerns);
     }
 
-    private void analyzeMessage(String message) {
+    private void analyzeMessage(String message, String source, ArrayList<String> concerns) {
         String lowerMessage = message.toLowerCase();
 
         StringBuilder redFlags = new StringBuilder();
@@ -72,10 +89,22 @@ public class ResultsActivity extends AppCompatActivity {
             scamType = "Fake delivery scam";
         }
 
+        if (source.equalsIgnoreCase("Email")) {
+            riskScore++;
+        }
+
+        if (concerns != null) {
+            if (concerns.contains("Urgent")) riskScore++;
+            if (concerns.contains("Contains Link")) riskScore++;
+            if (concerns.contains("Asks for Money")) riskScore++;
+            if (concerns.contains("Requests OTP")) riskScore += 2;
+            if (concerns.contains("Unknown Sender")) riskScore++;
+        }
+
         String riskLevel;
-        if (riskScore >= 4) {
+        if (riskScore >= 5) {
             riskLevel = "High";
-        } else if (riskScore >= 2) {
+        } else if (riskScore >= 3) {
             riskLevel = "Medium";
         } else if (riskScore >= 1) {
             riskLevel = "Low";
@@ -84,13 +113,13 @@ public class ResultsActivity extends AppCompatActivity {
         }
 
         if (redFlags.length() == 0) {
-            redFlags.append("• No obvious scam indicators detected from the simple rule-based check");
+            redFlags.append("• No obvious scam indicators detected from the current rule-based check");
         }
 
         String guidance;
-        if (riskScore >= 4) {
+        if (riskScore >= 5) {
             guidance = "Do not click links or reply. Verify through the official website or app.";
-        } else if (riskScore >= 2) {
+        } else if (riskScore >= 3) {
             guidance = "Be careful. Do not share personal details until you verify the sender.";
         } else {
             guidance = "No strong indicators were found, but always verify unusual messages carefully.";

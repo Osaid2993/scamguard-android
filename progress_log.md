@@ -46,3 +46,6 @@ Add helper actions such as Paste from Clipboard and Try Example.
 - Added Paste from Clipboard action to the main screen.
 - Added Try Example action with a sample scam message.
 - Improved the guided input flow before analysis.
+- Passed the selected message source and suspicion tags to the results screen.
+- Added source and selected concerns sections to the results UI.
+- Improved the rule-based result by using user-selected context.
