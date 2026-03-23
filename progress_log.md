@@ -29,6 +29,16 @@ Connect navigation from the main screen to the results screen.d suspicion tags a
 - Created the results screen layout for ScamGuard.
 - Added sections for risk level, scam type, red flags, and safe action guidance.
 - Added ResultsActivity and registered it in the Android manifest.
+- Connected navigation from the main screen to the results screen.
+- Added back button functionality to return to the main screen.
 
 ### Next step
 make the results dynamic instead of hardcoded.
+
+## 24 March 2026
+- Made the results screen dynamic instead of hardcoded.
+- Passed the user message from the main screen to the results screen.
+- Added simple rule-based scam analysis for risk level, scam type, red flags, and safe guidance.
+
+### Next step
+Add helper actions such as Paste from Clipboard and Try Example.
