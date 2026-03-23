@@ -42,3 +42,7 @@ make the results dynamic instead of hardcoded.
 
 ### Next step
 Add helper actions such as Paste from Clipboard and Try Example.
+
+- Added Paste from Clipboard action to the main screen.
+- Added Try Example action with a sample scam message.
+- Improved the guided input flow before analysis.
