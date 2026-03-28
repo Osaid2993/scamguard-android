@@ -49,3 +49,11 @@ Add helper actions such as Paste from Clipboard and Try Example.
 - Passed the selected message source and suspicion tags to the results screen.
 - Added source and selected concerns sections to the results UI.
 - Improved the rule-based result by using user-selected context.
+
+## 29 March 2026
+- Added a safety disclaimer to the results screen.
+- Polished the results UI with cleaner card-style sections.
+- Improved visual clarity by styling the risk level output.
+
+### Next step
+Strengthen the rule-based analysis by detecting more scam patterns and improving the result quality before integrating the AI flow.

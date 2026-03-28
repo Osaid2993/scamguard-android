@@ -1,5 +1,6 @@
 package com.osaid.scamguard;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -104,12 +105,16 @@ public class ResultsActivity extends AppCompatActivity {
         String riskLevel;
         if (riskScore >= 5) {
             riskLevel = "High";
+            riskLevelTextView.setTextColor(Color.parseColor("#B91C1C"));
         } else if (riskScore >= 3) {
             riskLevel = "Medium";
+            riskLevelTextView.setTextColor(Color.parseColor("#B45309"));
         } else if (riskScore >= 1) {
             riskLevel = "Low";
+            riskLevelTextView.setTextColor(Color.parseColor("#1D4ED8"));
         } else {
             riskLevel = "Minimal";
+            riskLevelTextView.setTextColor(Color.parseColor("#047857"));
         }
 
         if (redFlags.length() == 0) {
