@@ -57,3 +57,11 @@ Add helper actions such as Paste from Clipboard and Try Example.
 
 ### Next step
 Strengthen the rule-based analysis by detecting more scam patterns and improving the result quality before integrating the AI flow.
+
+## 2 April 2026
+- Improved the rule-based scam analysis with more scam indicators and categories.
+- Added better detection for links, urgency, money requests, OTP requests, delivery scams, bank scams, government scams, prize scams, and marketplace scams.
+- Improved scam type selection and safe guidance based on the detected pattern.
+
+### Next step
+Add more context to the rule-based logic or begin preparing the AI flow.

@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class ResultsActivity extends AppCompatActivity {
 
@@ -56,60 +57,114 @@ public class ResultsActivity extends AppCompatActivity {
 
         StringBuilder redFlags = new StringBuilder();
         int riskScore = 0;
-        String scamType = "General suspicious message";
 
-        if (lowerMessage.contains("urgent")) {
-            redFlags.append("• Uses urgent language\n");
-            riskScore++;
-        }
+        int bankScore = 0;
+        int deliveryScore = 0;
+        int governmentScore = 0;
+        int prizeScore = 0;
+        int marketplaceScore = 0;
+        int paymentScore = 0;
 
-        if (lowerMessage.contains("click")) {
-            redFlags.append("• Contains a call to click a link\n");
-            riskScore++;
-        }
-
-        if (lowerMessage.contains("verify")) {
-            redFlags.append("• Requests verification\n");
-            riskScore++;
-        }
-
-        if (lowerMessage.contains("otp")) {
-            redFlags.append("• Requests OTP or security code\n");
+        // Urgency / fear
+        if (containsAny(lowerMessage, "urgent", "immediately", "act now", "final notice", "suspended", "locked", "warning")) {
+            redFlags.append("• Uses urgent or threatening language\n");
             riskScore += 2;
         }
 
-        if (lowerMessage.contains("bank") || lowerMessage.contains("account")) {
-            redFlags.append("• Mentions bank or account details\n");
-            riskScore++;
-            scamType = "Bank impersonation";
+        // Suspicious links
+        if (containsUrl(lowerMessage)) {
+            redFlags.append("• Contains a link or web address\n");
+            riskScore += 2;
         }
 
-        if (lowerMessage.contains("delivery") || lowerMessage.contains("package")) {
-            redFlags.append("• Mentions delivery or package issue\n");
-            riskScore++;
-            scamType = "Fake delivery scam";
+        // Verification / personal information
+        if (containsAny(lowerMessage, "verify", "confirm", "update details", "identity", "login")) {
+            redFlags.append("• Requests verification or personal details\n");
+            riskScore += 2;
         }
 
+        // OTP / password
+        if (containsAny(lowerMessage, "otp", "one-time password", "security code", "password", "pin")) {
+            redFlags.append("• Requests sensitive security information\n");
+            riskScore += 3;
+            bankScore += 1;
+        }
+
+        // Money / payment
+        if (containsAny(lowerMessage, "payment", "pay now", "transfer", "bank transfer", "gift card", "bitcoin", "crypto", "fees")) {
+            redFlags.append("• Requests money or unusual payment methods\n");
+            riskScore += 2;
+            paymentScore += 2;
+        }
+
+        // Bank
+        if (containsAny(lowerMessage, "bank", "account", "transaction", "card", "credit card")) {
+            redFlags.append("• Mentions bank or account-related details\n");
+            riskScore += 1;
+            bankScore += 2;
+        }
+
+        // Delivery
+        if (containsAny(lowerMessage, "delivery", "package", "parcel", "courier", "shipping")) {
+            redFlags.append("• Mentions a package or delivery issue\n");
+            riskScore += 1;
+            deliveryScore += 2;
+        }
+
+        // Government / tax
+        if (containsAny(lowerMessage, "ato", "government", "tax", "medicare", "centrelink", "fine", "penalty")) {
+            redFlags.append("• Uses government or official authority language\n");
+            riskScore += 2;
+            governmentScore += 2;
+        }
+
+        // Prize / reward
+        if (containsAny(lowerMessage, "won", "winner", "claim prize", "reward", "gift", "congratulations")) {
+            redFlags.append("• Promises prizes, rewards, or unexpected benefits\n");
+            riskScore += 2;
+            prizeScore += 2;
+        }
+
+        // Marketplace
+        if (containsAny(lowerMessage, "marketplace", "buyer", "seller", "item", "listing", "pickup")) {
+            redFlags.append("• Looks related to a marketplace buying or selling message\n");
+            riskScore += 1;
+            marketplaceScore += 2;
+        }
+
+        // Source adds context
         if (source.equalsIgnoreCase("Email")) {
-            riskScore++;
+            riskScore += 1;
+        } else if (source.equalsIgnoreCase("Social Media")) {
+            marketplaceScore += 1;
+            prizeScore += 1;
         }
 
+        // User-selected concerns
         if (concerns != null) {
-            if (concerns.contains("Urgent")) riskScore++;
-            if (concerns.contains("Contains Link")) riskScore++;
-            if (concerns.contains("Asks for Money")) riskScore++;
-            if (concerns.contains("Requests OTP")) riskScore += 2;
-            if (concerns.contains("Unknown Sender")) riskScore++;
+            if (concerns.contains("Urgent")) riskScore += 1;
+            if (concerns.contains("Contains Link")) riskScore += 1;
+            if (concerns.contains("Asks for Money")) {
+                riskScore += 2;
+                paymentScore += 1;
+            }
+            if (concerns.contains("Requests OTP")) {
+                riskScore += 2;
+                bankScore += 1;
+            }
+            if (concerns.contains("Unknown Sender")) riskScore += 1;
         }
+
+        String scamType = getScamType(bankScore, deliveryScore, governmentScore, prizeScore, marketplaceScore, paymentScore);
 
         String riskLevel;
-        if (riskScore >= 5) {
+        if (riskScore >= 7) {
             riskLevel = "High";
             riskLevelTextView.setTextColor(Color.parseColor("#B91C1C"));
-        } else if (riskScore >= 3) {
+        } else if (riskScore >= 4) {
             riskLevel = "Medium";
             riskLevelTextView.setTextColor(Color.parseColor("#B45309"));
-        } else if (riskScore >= 1) {
+        } else if (riskScore >= 2) {
             riskLevel = "Low";
             riskLevelTextView.setTextColor(Color.parseColor("#1D4ED8"));
         } else {
@@ -121,18 +176,66 @@ public class ResultsActivity extends AppCompatActivity {
             redFlags.append("• No obvious scam indicators detected from the current rule-based check");
         }
 
-        String guidance;
-        if (riskScore >= 5) {
-            guidance = "Do not click links or reply. Verify through the official website or app.";
-        } else if (riskScore >= 3) {
-            guidance = "Be careful. Do not share personal details until you verify the sender.";
-        } else {
-            guidance = "No strong indicators were found, but always verify unusual messages carefully.";
-        }
+        String guidance = getGuidance(scamType, riskLevel);
 
         riskLevelTextView.setText(riskLevel);
         scamTypeTextView.setText(scamType);
         redFlagsTextView.setText(redFlags.toString().trim());
         safeGuidanceTextView.setText(guidance);
+    }
+
+    private boolean containsAny(String text, String... keywords) {
+        for (String keyword : keywords) {
+            if (text.contains(keyword)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean containsUrl(String text) {
+        return Pattern.compile("(http://|https://|www\\.|bit\\.ly|tinyurl)", Pattern.CASE_INSENSITIVE)
+                .matcher(text)
+                .find();
+    }
+
+    private String getScamType(int bankScore, int deliveryScore, int governmentScore,
+                               int prizeScore, int marketplaceScore, int paymentScore) {
+
+        int maxScore = Math.max(
+                Math.max(bankScore, deliveryScore),
+                Math.max(Math.max(governmentScore, prizeScore), Math.max(marketplaceScore, paymentScore))
+        );
+
+        if (maxScore == 0) return "General suspicious message";
+        if (bankScore == maxScore) return "Bank impersonation scam";
+        if (deliveryScore == maxScore) return "Fake delivery scam";
+        if (governmentScore == maxScore) return "Government or tax scam";
+        if (prizeScore == maxScore) return "Prize or reward scam";
+        if (marketplaceScore == maxScore) return "Marketplace scam";
+        return "Payment request scam";
+    }
+
+    private String getGuidance(String scamType, String riskLevel) {
+        if (riskLevel.equals("High")) {
+            return "Do not click links, reply, or share any details. Verify the sender through the official website or app.";
+        }
+
+        switch (scamType) {
+            case "Bank impersonation scam":
+                return "Do not share OTPs, passwords, or account details. Contact your bank through the official app or phone number.";
+            case "Fake delivery scam":
+                return "Do not click tracking or payment links. Check delivery updates through the official courier website.";
+            case "Government or tax scam":
+                return "Do not panic or make immediate payments. Contact the official agency using trusted contact details.";
+            case "Prize or reward scam":
+                return "Be cautious of unexpected prizes. Never pay fees or share personal details to claim rewards.";
+            case "Marketplace scam":
+                return "Avoid unusual payment requests or external links. Keep communication and payment inside the official platform.";
+            case "Payment request scam":
+                return "Do not send money until you independently verify the sender and the reason for payment.";
+            default:
+                return "No strong indicators were found, but always verify unusual messages carefully before taking action.";
+        }
     }
 }
