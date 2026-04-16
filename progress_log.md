@@ -98,3 +98,10 @@ Build the splash screen, then the Scam Library screen.
 
 ### Next step
 Add a subtle fade and scale animation to the splash to lift the branded moment, then build the Scam Library screen.
+
+## 17 April 2026
+
+- Replaced the static system splash with a custom animated splash screen. Shield scales up from 70% with a fade-in over 600ms using a decelerate curve, followed by the app name fading in at 300ms and the tagline at 500ms. After a 1600ms hold, the screen cross-fades into the main activity.
+
+### Next step
+Add original message card to the results screen.

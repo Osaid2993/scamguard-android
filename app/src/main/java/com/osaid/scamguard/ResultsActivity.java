@@ -19,6 +19,7 @@ public class ResultsActivity extends AppCompatActivity {
     private TextView scamTypeTextView;
     private TextView redFlagsTextView;
     private TextView safeGuidanceTextView;
+    private TextView originalMessageTextView;
     private LinearLayout riskBadgeContainer;
 
     @Override
@@ -32,6 +33,7 @@ public class ResultsActivity extends AppCompatActivity {
         scamTypeTextView = findViewById(R.id.scamTypeTextView);
         redFlagsTextView = findViewById(R.id.redFlagsTextView);
         safeGuidanceTextView = findViewById(R.id.safeGuidanceTextView);
+        originalMessageTextView = findViewById(R.id.originalMessageTextView);
         riskBadgeContainer = findViewById(R.id.riskBadgeContainer);
 
         ImageButton backButton = findViewById(R.id.backButton);
@@ -45,6 +47,7 @@ public class ResultsActivity extends AppCompatActivity {
         if (source == null) source = "Unknown";
 
         sourceTextView.setText(source);
+        originalMessageTextView.setText(message);
 
         if (concerns == null || concerns.isEmpty()) {
             concernsTextView.setText("None selected");
