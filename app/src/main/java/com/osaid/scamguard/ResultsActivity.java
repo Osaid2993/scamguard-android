@@ -1,7 +1,8 @@
 package com.osaid.scamguard;
 
 import android.os.Bundle;
-import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +19,7 @@ public class ResultsActivity extends AppCompatActivity {
     private TextView scamTypeTextView;
     private TextView redFlagsTextView;
     private TextView safeGuidanceTextView;
+    private LinearLayout riskBadgeContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +32,9 @@ public class ResultsActivity extends AppCompatActivity {
         scamTypeTextView = findViewById(R.id.scamTypeTextView);
         redFlagsTextView = findViewById(R.id.redFlagsTextView);
         safeGuidanceTextView = findViewById(R.id.safeGuidanceTextView);
+        riskBadgeContainer = findViewById(R.id.riskBadgeContainer);
 
-        Button backButton = findViewById(R.id.backButton);
+        ImageButton backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(v -> finish());
 
         String message = getIntent().getStringExtra("message_text");
@@ -65,74 +68,63 @@ public class ResultsActivity extends AppCompatActivity {
         int marketplaceScore = 0;
         int paymentScore = 0;
 
-        // Urgency / fear
         if (containsAny(lowerMessage, "urgent", "immediately", "act now", "final notice", "suspended", "locked", "warning")) {
             redFlags.append("• Uses urgent or threatening language\n");
             riskScore += 2;
         }
 
-        // Suspicious links
         if (containsUrl(lowerMessage)) {
             redFlags.append("• Contains a link or web address\n");
             riskScore += 2;
         }
 
-        // Verification / personal information
         if (containsAny(lowerMessage, "verify", "confirm", "update details", "identity", "login")) {
             redFlags.append("• Requests verification or personal details\n");
             riskScore += 2;
         }
 
-        // OTP / password
         if (containsAny(lowerMessage, "otp", "one-time password", "security code", "password", "pin")) {
             redFlags.append("• Requests sensitive security information\n");
             riskScore += 3;
             bankScore += 1;
         }
 
-        // Money / payment
         if (containsAny(lowerMessage, "payment", "pay now", "transfer", "bank transfer", "gift card", "bitcoin", "crypto", "fees")) {
             redFlags.append("• Requests money or unusual payment methods\n");
             riskScore += 2;
             paymentScore += 2;
         }
 
-        // Bank
         if (containsAny(lowerMessage, "bank", "account", "transaction", "card", "credit card")) {
             redFlags.append("• Mentions bank or account-related details\n");
             riskScore += 1;
             bankScore += 2;
         }
 
-        // Delivery
         if (containsAny(lowerMessage, "delivery", "package", "parcel", "courier", "shipping")) {
             redFlags.append("• Mentions a package or delivery issue\n");
             riskScore += 1;
             deliveryScore += 2;
         }
 
-        // Government / tax
         if (containsAny(lowerMessage, "ato", "government", "tax", "medicare", "centrelink", "fine", "penalty")) {
             redFlags.append("• Uses government or official authority language\n");
             riskScore += 2;
             governmentScore += 2;
         }
 
-        // Prize / reward
         if (containsAny(lowerMessage, "won", "winner", "claim prize", "reward", "gift", "congratulations")) {
             redFlags.append("• Promises prizes, rewards, or unexpected benefits\n");
             riskScore += 2;
             prizeScore += 2;
         }
 
-        // Marketplace
         if (containsAny(lowerMessage, "marketplace", "buyer", "seller", "item", "listing", "pickup")) {
             redFlags.append("• Looks related to a marketplace buying or selling message\n");
             riskScore += 1;
             marketplaceScore += 2;
         }
 
-        // Source adds context
         if (source.equalsIgnoreCase("Email")) {
             riskScore += 1;
         } else if (source.equalsIgnoreCase("Social Media")) {
@@ -140,7 +132,6 @@ public class ResultsActivity extends AppCompatActivity {
             prizeScore += 1;
         }
 
-        // User-selected concerns
         if (concerns != null) {
             if (concerns.contains("Urgent")) riskScore += 1;
             if (concerns.contains("Contains Link")) riskScore += 1;
@@ -158,30 +149,39 @@ public class ResultsActivity extends AppCompatActivity {
         String scamType = getScamType(bankScore, deliveryScore, governmentScore, prizeScore, marketplaceScore, paymentScore);
 
         String riskLevel;
+        int riskColor;
+        int badgeBackground;
+
         if (riskScore >= 7) {
             riskLevel = "High";
-            riskLevelTextView.setTextColor(ContextCompat.getColor(this, R.color.risk_high));
+            riskColor = R.color.risk_high;
+            badgeBackground = R.drawable.bg_risk_high;
         } else if (riskScore >= 4) {
             riskLevel = "Medium";
-            riskLevelTextView.setTextColor(ContextCompat.getColor(this, R.color.risk_medium));
+            riskColor = R.color.risk_medium;
+            badgeBackground = R.drawable.bg_risk_medium;
         } else if (riskScore >= 2) {
             riskLevel = "Low";
-            riskLevelTextView.setTextColor(ContextCompat.getColor(this, R.color.risk_low));
+            riskColor = R.color.risk_low;
+            badgeBackground = R.drawable.bg_risk_low;
         } else {
             riskLevel = "Minimal";
-            riskLevelTextView.setTextColor(ContextCompat.getColor(this, R.color.risk_minimal));
+            riskColor = R.color.risk_minimal;
+            badgeBackground = R.drawable.bg_risk_minimal;
         }
+
+        riskLevelTextView.setText(riskLevel);
+        riskLevelTextView.setTextColor(ContextCompat.getColor(this, riskColor));
+        riskBadgeContainer.setBackgroundResource(badgeBackground);
+
+        scamTypeTextView.setText(scamType);
 
         if (redFlags.length() == 0) {
             redFlags.append("• No obvious scam indicators detected from the current rule-based check");
         }
 
-        String guidance = getGuidance(scamType, riskLevel);
-
-        riskLevelTextView.setText(riskLevel);
-        scamTypeTextView.setText(scamType);
         redFlagsTextView.setText(redFlags.toString().trim());
-        safeGuidanceTextView.setText(guidance);
+        safeGuidanceTextView.setText(getGuidance(scamType, riskLevel));
     }
 
     private boolean containsAny(String text, String... keywords) {

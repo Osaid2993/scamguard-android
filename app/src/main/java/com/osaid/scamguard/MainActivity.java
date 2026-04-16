@@ -5,10 +5,10 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,16 +16,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
+
+    private final String[] exampleMessages = {
+            "URGENT: Your bank account will be suspended. Click this link immediately to verify your identity and avoid service interruption.",
+            "Hi, your Australia Post parcel could not be delivered. Pay the $2.99 redelivery fee here: http://auspost-redelivery.xyz/pay",
+            "Congratulations! You have won a $1000 gift card. Claim your prize now by sending your card details to this number.",
+            "ATO Notice: You have an outstanding tax penalty of $847. Pay within 24 hours to avoid legal action. Ref: 77291.",
+            "Your verification code is 549281. Please share this code with our support agent to confirm your identity."
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button analyzeButton = findViewById(R.id.analyzeButton);
-        Button pasteClipboardButton = findViewById(R.id.pasteClipboardButton);
-        Button tryExampleButton = findViewById(R.id.tryExampleButton);
+        TextView analyzeButton = findViewById(R.id.analyzeButton);
+        TextView pasteClipboardButton = findViewById(R.id.pasteClipboardButton);
+        TextView tryExampleButton = findViewById(R.id.tryExampleButton);
         EditText messageEditText = findViewById(R.id.messageEditText);
 
         RadioGroup sourceGroup = findViewById(R.id.sourceGroup);
@@ -45,10 +55,8 @@ public class MainActivity extends AppCompatActivity {
 
             if (clipboard != null && clipboard.hasPrimaryClip()) {
                 ClipData clipData = clipboard.getPrimaryClip();
-
                 if (clipData != null && clipData.getItemCount() > 0) {
                     CharSequence pastedText = clipData.getItemAt(0).getText();
-
                     if (pastedText != null) {
                         messageEditText.setText(pastedText.toString());
                     } else {
@@ -61,14 +69,17 @@ public class MainActivity extends AppCompatActivity {
         });
 
         tryExampleButton.setOnClickListener(v -> {
-            String exampleMessage =
-                    "URGENT: Your bank account will be suspended. " +
-                            "Click this link immediately to verify your identity and avoid service interruption.";
-            messageEditText.setText(exampleMessage);
+            int index = new Random().nextInt(exampleMessages.length);
+            messageEditText.setText(exampleMessages[index]);
         });
 
         analyzeButton.setOnClickListener(v -> {
             String message = messageEditText.getText().toString().trim();
+
+            if (message.isEmpty()) {
+                Toast.makeText(this, "Please paste or type a message first", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             String source = "Unknown";
             int selectedSourceId = sourceGroup.getCheckedRadioButtonId();
@@ -83,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
             ArrayList<String> selectedConcerns = new ArrayList<>();
-
             if (chipUrgent.isChecked()) selectedConcerns.add("Urgent");
             if (chipLink.isChecked()) selectedConcerns.add("Contains Link");
             if (chipMoney.isChecked()) selectedConcerns.add("Asks for Money");
