@@ -90,3 +90,11 @@ Redesign activity_main.xml using the new theme system, then redesign activity_re
 
 ### Next step
 Build the splash screen, then the Scam Library screen.
+
+## 17 April 2026
+
+- Verified Android 16 predictive back compatibility on the Results screen. The back button uses finish() which is fully supported by the system's predictive back API by default, no opt-out needed. Will be documented on the presentation's compatibility slide.
+- Built SplashActivity with the Android 12+ SplashScreen API, keeping the shield on the dark base for a short moment before fading into MainActivity. Updated the manifest to make SplashActivity the launcher.
+
+### Next step
+Add a subtle fade and scale animation to the splash to lift the branded moment, then build the Scam Library screen.
