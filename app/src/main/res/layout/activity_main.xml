@@ -3,112 +3,143 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/bg_base">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="24dp">
 
         <TextView
             android:id="@+id/titleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ScamGuard"
-            android:textSize="28sp"
+            android:textSize="32sp"
             android:textStyle="bold"
-            android:layout_marginBottom="8dp" />
+            android:textColor="@color/accent"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="4dp" />
 
         <TextView
             android:id="@+id/subtitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Private on-device scam analysis"
-            android:textSize="14sp"
-            android:layout_marginBottom="20dp" />
+            android:textSize="16sp"
+            android:textColor="@color/text_secondary"
+            android:layout_marginBottom="32dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Where did you receive this message?"
+            android:textColor="@color/text_primary"
             android:textStyle="bold"
-            android:layout_marginBottom="8dp" />
+            android:textSize="15sp"
+            android:layout_marginBottom="12dp" />
 
         <RadioGroup
             android:id="@+id/sourceGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="24dp">
 
             <RadioButton
                 android:id="@+id/radioSms"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="SMS" />
+                android:text="SMS"
+                android:textColor="@color/text_primary"
+                android:buttonTint="@color/accent" />
 
             <RadioButton
                 android:id="@+id/radioEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email" />
+                android:text="Email"
+                android:textColor="@color/text_primary"
+                android:buttonTint="@color/accent" />
 
             <RadioButton
                 android:id="@+id/radioSocial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Social Media" />
+                android:text="Social Media"
+                android:textColor="@color/text_primary"
+                android:buttonTint="@color/accent" />
         </RadioGroup>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="What feels suspicious?"
+            android:textColor="@color/text_primary"
             android:textStyle="bold"
-            android:layout_marginBottom="8dp" />
+            android:textSize="15sp"
+            android:layout_marginBottom="12dp" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/suspicionChipGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:singleLine="false"
-            android:layout_marginBottom="20dp">
+            app:chipSpacingVertical="8dp"
+            android:layout_marginBottom="24dp">
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipUrgent"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Urgent" />
+                android:text="Urgent"
+                android:textColor="@color/text_primary"
+                app:chipBackgroundColor="@color/bg_surface_high"
+                app:chipStrokeColor="@color/outline"
+                app:rippleColor="@color/accent_soft" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipLink"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Contains Link" />
+                android:text="Contains Link"
+                android:textColor="@color/text_primary"
+                app:chipBackgroundColor="@color/bg_surface_high"
+                app:chipStrokeColor="@color/outline" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipMoney"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Asks for Money" />
+                android:text="Asks for Money"
+                android:textColor="@color/text_primary"
+                app:chipBackgroundColor="@color/bg_surface_high"
+                app:chipStrokeColor="@color/outline" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipOtp"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Requests OTP" />
+                android:text="Requests OTP"
+                android:textColor="@color/text_primary"
+                app:chipBackgroundColor="@color/bg_surface_high"
+                app:chipStrokeColor="@color/outline" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipUnknown"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Unknown Sender" />
+                android:text="Unknown Sender"
+                android:textColor="@color/text_primary"
+                app:chipBackgroundColor="@color/bg_surface_high"
+                app:chipStrokeColor="@color/outline" />
         </com.google.android.material.chip.ChipGroup>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -116,7 +147,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Paste the suspicious message here"
-            android:layout_marginBottom="16dp">
+            android:textColorHint="@color/text_muted"
+            app:hintTextColor="@color/accent"
+            app:boxBackgroundColor="@color/bg_surface"
+            app:boxStrokeColor="@color/outline"
+            app:boxStrokeWidthFocused="2dp"
+            android:layout_marginBottom="24dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/messageEditText"
@@ -124,7 +160,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="top"
                 android:inputType="textMultiLine"
-                android:minLines="5" />
+                android:minLines="5"
+                android:textColor="@color/text_primary" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -135,25 +172,35 @@
 
             <Button
                 android:id="@+id/pasteClipboardButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_weight="1"
                 android:text="Paste Clipboard"
+                android:textColor="@color/accent"
+                app:strokeColor="@color/accent"
                 android:layout_marginEnd="8dp" />
 
             <Button
                 android:id="@+id/tryExampleButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_weight="1"
-                android:text="Try Example" />
+                android:text="Try Example"
+                android:textColor="@color/accent"
+                app:strokeColor="@color/accent" />
         </LinearLayout>
 
         <Button
             android:id="@+id/analyzeButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Analyze for Scams" />
+            android:layout_height="60dp"
+            android:text="Analyze for Scams"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/bg_base"
+            android:backgroundTint="@color/accent" />
 
     </LinearLayout>
 </ScrollView>

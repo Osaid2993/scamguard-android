@@ -1,5 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+
+    <!-- Core surfaces (dark theme) -->
+    <color name="bg_base">#0B1220</color>
+    <color name="bg_surface">#111A2E</color>
+    <color name="bg_surface_high">#18243D</color>
+    <color name="bg_divider">#1F2D48</color>
+
+    <!-- Accent (teal / cyan) -->
+    <color name="accent">#22D3EE</color>
+    <color name="accent_dim">#0891B2</color>
+    <color name="accent_soft">#164E63</color>
+
+    <!-- Text -->
+    <color name="text_primary">#E6EEF7</color>
+    <color name="text_secondary">#9FB0C7</color>
+    <color name="text_muted">#6C7E97</color>
+
+    <!-- Risk colours -->
+    <color name="risk_high">#F87171</color>
+    <color name="risk_high_bg">#3A1115</color>
+    <color name="risk_medium">#FBBF24</color>
+    <color name="risk_medium_bg">#3A2A0A</color>
+    <color name="risk_low">#60A5FA</color>
+    <color name="risk_low_bg">#0F1F3A</color>
+    <color name="risk_minimal">#34D399</color>
+    <color name="risk_minimal_bg">#0C2A22</color>
+
+    <!-- Utility -->
+    <color name="outline">#253453</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
 </resources>

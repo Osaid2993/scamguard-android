@@ -3,78 +3,88 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F6F8FB">
+    android:background="@color/bg_base">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="24dp">
 
         <TextView
             android:id="@+id/resultsTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Scam Analysis Results"
-            android:textSize="26sp"
+            android:textSize="28sp"
             android:textStyle="bold"
-            android:textColor="#111827"
-            android:layout_marginBottom="6dp" />
+            android:textColor="@color/text_primary"
+            android:layout_marginBottom="8dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Review the message carefully before taking any action."
-            android:textSize="14sp"
-            android:textColor="#6B7280"
-            android:layout_marginBottom="20dp" />
+            android:textSize="15sp"
+            android:textColor="@color/text_secondary"
+            android:layout_marginBottom="24dp" />
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="14dp"
+            android:layout_marginBottom="16dp"
             app:cardCornerRadius="16dp"
-            app:cardElevation="3dp"
-            app:strokeColor="#E5E7EB"
+            app:cardBackgroundColor="@color/bg_surface"
+            app:strokeColor="@color/outline"
             app:strokeWidth="1dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Message Source"
                     android:textStyle="bold"
-                    android:textColor="#111827" />
+                    android:textColor="@color/accent"
+                    android:textSize="13sp"
+                    android:textAllCaps="true" />
 
                 <TextView
                     android:id="@+id/sourceTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="SMS"
-                    android:textSize="15sp"
-                    android:textColor="#374151"
+                    android:textSize="18sp"
+                    android:textColor="@color/text_primary"
                     android:layout_marginTop="8dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/bg_divider"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Selected Concerns"
                     android:textStyle="bold"
-                    android:textColor="#111827"
-                    android:layout_marginTop="14dp" />
+                    android:textColor="@color/accent"
+                    android:textSize="13sp"
+                    android:textAllCaps="true" />
 
                 <TextView
                     android:id="@+id/concernsTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Urgent, Contains Link"
-                    android:textSize="15sp"
-                    android:textColor="#374151"
+                    android:textSize="18sp"
+                    android:textColor="@color/text_primary"
                     android:layout_marginTop="8dp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -82,129 +92,127 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="14dp"
+            android:layout_marginBottom="16dp"
             app:cardCornerRadius="16dp"
-            app:cardElevation="3dp"
-            app:strokeColor="#E5E7EB"
+            app:cardBackgroundColor="@color/bg_surface"
+            app:strokeColor="@color/outline"
             app:strokeWidth="1dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Risk Level"
+                    android:text="Risk Assessment"
                     android:textStyle="bold"
-                    android:textColor="#111827" />
+                    android:textColor="@color/accent"
+                    android:textSize="13sp"
+                    android:textAllCaps="true" />
 
                 <TextView
                     android:id="@+id/riskLevelTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="High"
-                    android:textSize="20sp"
+                    android:textSize="32sp"
                     android:textStyle="bold"
-                    android:textColor="#B91C1C"
+                    android:textColor="@color/risk_high"
                     android:layout_marginTop="8dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Scam Type"
-                    android:textStyle="bold"
-                    android:textColor="#111827"
-                    android:layout_marginTop="14dp" />
 
                 <TextView
                     android:id="@+id/scamTypeTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Bank Impersonation"
-                    android:textSize="15sp"
-                    android:textColor="#374151"
-                    android:layout_marginTop="8dp" />
+                    android:textSize="16sp"
+                    android:textColor="@color/text_secondary"
+                    android:layout_marginTop="4dp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="14dp"
+            android:layout_marginBottom="16dp"
             app:cardCornerRadius="16dp"
-            app:cardElevation="3dp"
-            app:strokeColor="#E5E7EB"
+            app:cardBackgroundColor="@color/bg_surface"
+            app:strokeColor="@color/outline"
             app:strokeWidth="1dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Red Flags Detected"
                     android:textStyle="bold"
-                    android:textColor="#111827" />
+                    android:textColor="@color/accent"
+                    android:textSize="13sp"
+                    android:textAllCaps="true" />
 
                 <TextView
                     android:id="@+id/redFlagsTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="• Urgent language&#10;• Suspicious link&#10;• Requests account verification"
-                    android:textSize="15sp"
-                    android:textColor="#374151"
-                    android:lineSpacingExtra="4dp"
-                    android:layout_marginTop="10dp" />
+                    android:textSize="16sp"
+                    android:textColor="@color/text_primary"
+                    android:lineSpacingExtra="6dp"
+                    android:layout_marginTop="12dp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="14dp"
+            android:layout_marginBottom="16dp"
             app:cardCornerRadius="16dp"
-            app:cardElevation="3dp"
-            app:strokeColor="#E5E7EB"
+            app:cardBackgroundColor="@color/accent_soft"
+            app:strokeColor="@color/accent"
             app:strokeWidth="1dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Safe Action Guidance"
                     android:textStyle="bold"
-                    android:textColor="#111827" />
+                    android:textColor="@color/accent"
+                    android:textSize="13sp"
+                    android:textAllCaps="true" />
 
                 <TextView
                     android:id="@+id/safeGuidanceTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Do not click the link. Contact your bank through the official app or website."
-                    android:textSize="15sp"
-                    android:textColor="#374151"
-                    android:lineSpacingExtra="4dp"
-                    android:layout_marginTop="10dp" />
+                    android:textSize="16sp"
+                    android:textColor="@color/text_primary"
+                    android:lineSpacingExtra="6dp"
+                    android:layout_marginTop="12dp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="18dp"
+            android:layout_marginBottom="24dp"
             app:cardCornerRadius="16dp"
-            app:cardElevation="2dp"
-            app:strokeColor="#F59E0B"
+            app:cardBackgroundColor="@color/bg_base"
+            app:strokeColor="@color/bg_divider"
             app:strokeWidth="1dp">
 
             <LinearLayout
@@ -218,25 +226,30 @@
                     android:layout_height="wrap_content"
                     android:text="Safety Disclaimer"
                     android:textStyle="bold"
-                    android:textColor="#92400E" />
+                    android:textColor="@color/text_muted"
+                    android:textSize="12sp"
+                    android:textAllCaps="true" />
 
                 <TextView
                     android:id="@+id/disclaimerTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="ScamGuard provides risk-based guidance only. It does not guarantee that a message is a scam and should not replace official legal, financial, or security advice."
-                    android:textSize="14sp"
-                    android:textColor="#78350F"
+                    android:textSize="13sp"
+                    android:textColor="@color/text_muted"
                     android:lineSpacingExtra="4dp"
-                    android:layout_marginTop="10dp" />
+                    android:layout_marginTop="8dp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <Button
             android:id="@+id/backButton"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Back" />
+            android:layout_height="60dp"
+            android:text="Done"
+            android:textColor="@color/accent"
+            app:strokeColor="@color/accent" />
 
     </LinearLayout>
 </ScrollView>

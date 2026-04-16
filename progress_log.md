@@ -65,3 +65,17 @@ Strengthen the rule-based analysis by detecting more scam patterns and improving
 
 ### Next step
 Add more context to the rule-based logic or begin preparing the AI flow.
+
+## 16 April 2026
+
+- Started major UI overhaul to lift the app toward HD-level visual quality.
+- Introduced a dark teal visual identity across the app using a full colour palette in colors.xml, covering surfaces, accents, text tiers, and four risk levels (high, medium, low, minimal) with matched foreground and background pairs.
+- Rewrote themes.xml to use Material 3 dark theme with teal as the primary accent. Also added a Theme.ScamGuard.Splash variant using the Android 12+ SplashScreen API for a branded app launch.
+- Updated build.gradle to pull in Material 3 (1.12.0) and the AndroidX core-splashscreen library, and confirmed compileSdk and targetSdk are set to 35 to meet the task requirement.
+- Built an icon system using vector drawables: ic_shield and ic_shield_splash for app branding, ic_alert (red) for red flags, ic_check (green) for safe guidance, ic_info (amber) for disclaimers, ic_source and ic_tag (teal) for neutral context on the results screen, ic_scan for the Analyze button, ic_paste and ic_bulb for secondary actions, and ic_arrow_back for top-bar navigation.
+- Built a shape drawable system for visual consistency: bg_button_primary (filled teal pill), bg_button_secondary (dark outlined pill), bg_card (card surface with outline), bg_input (rounded text input), and four risk badge backgrounds (bg_risk_high, bg_risk_medium, bg_risk_low, bg_risk_minimal).
+- Chose a unified corner radius system: 14dp for interactive elements (buttons, inputs) and 18dp for surfaces (cards, risk badges). This creates a deliberate hierarchy where surfaces feel softer than interactive elements.
+- Kept the existing rule engine logic untouched. The redesign is purely a presentation layer change.
+
+### Next step
+Redesign activity_main.xml using the new theme system, then redesign activity_results.xml with the risk badge hero, followed by the Scam Library screen and splash wiring.
