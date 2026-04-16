@@ -1,6 +1,11 @@
 package com.osaid.scamguard;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -47,7 +52,7 @@ public class ResultsActivity extends AppCompatActivity {
         if (source == null) source = "Unknown";
 
         sourceTextView.setText(source);
-        originalMessageTextView.setText(message);
+        originalMessageTextView.setText(highlightSuspiciousText(message));
 
         if (concerns == null || concerns.isEmpty()) {
             concernsTextView.setText("None selected");
@@ -56,6 +61,44 @@ public class ResultsActivity extends AppCompatActivity {
         }
 
         analyzeMessage(message, source, concerns);
+    }
+
+    private SpannableString highlightSuspiciousText(String message) {
+        SpannableString spannable = new SpannableString(message);
+        String lowerMessage = message.toLowerCase();
+
+        String[][] keywordGroups = {
+                {"urgent", "immediately", "act now", "final notice", "suspended", "locked", "warning", "within 24 hours"},
+                {"http://", "https://", "www.", "bit.ly", "tinyurl", ".xyz"},
+                {"verify", "confirm", "update details", "identity", "login"},
+                {"otp", "one-time password", "security code", "password", "pin", "verification code"},
+                {"payment", "pay now", "transfer", "bank transfer", "gift card", "bitcoin", "crypto", "fees"},
+                {"bank", "account", "transaction", "card", "credit card"},
+                {"delivery", "package", "parcel", "courier", "shipping"},
+                {"ato", "government", "tax", "medicare", "centrelink", "fine", "penalty"},
+                {"won", "winner", "claim prize", "reward", "congratulations"},
+                {"marketplace", "buyer", "seller", "item", "listing", "pickup"}
+        };
+
+        int highlightColor = ContextCompat.getColor(this, R.color.risk_high);
+
+        for (String[] group : keywordGroups) {
+            for (String keyword : group) {
+                int start = lowerMessage.indexOf(keyword);
+                while (start >= 0) {
+                    int end = start + keyword.length();
+                    spannable.setSpan(
+                            new ForegroundColorSpan(highlightColor),
+                            start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    spannable.setSpan(
+                            new StyleSpan(Typeface.BOLD),
+                            start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    start = lowerMessage.indexOf(keyword, end);
+                }
+            }
+        }
+
+        return spannable;
     }
 
     private void analyzeMessage(String message, String source, ArrayList<String> concerns) {

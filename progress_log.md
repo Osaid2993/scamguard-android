@@ -99,9 +99,13 @@ Build the splash screen, then the Scam Library screen.
 ### Next step
 Add a subtle fade and scale animation to the splash to lift the branded moment, then build the Scam Library screen.
 
-## 17 April 2026
-
 - Replaced the static system splash with a custom animated splash screen. Shield scales up from 70% with a fade-in over 600ms using a decelerate curve, followed by the app name fading in at 300ms and the tagline at 500ms. After a 1600ms hold, the screen cross-fades into the main activity.
 
 ### Next step
 Add original message card to the results screen.
+
+- Added an Original Message card to the results screen using monospace font to visually separate the raw pasted message from the analysis text.
+- Built suspicious phrase highlighting using SpannableString. The app now marks matched keywords (urgency, links, bank language, OTP requests, etc.) in bold red inside the original message so the user can see exactly what triggered the detection.
+
+### Next step
+Build the Scam Library screen and add a Learn button to the main screen header.
