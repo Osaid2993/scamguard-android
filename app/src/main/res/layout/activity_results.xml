@@ -162,6 +162,60 @@
                 android:lineSpacingExtra="6dp" />
         </LinearLayout>
 
+        <!-- AI Explanation card: populated by Gemma once integrated -->
+        <LinearLayout
+            android:id="@+id/aiExplanationContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card"
+            android:padding="18dp"
+            android:layout_marginBottom="14dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp">
+
+                <!-- Shield icon signals this section is AI-powered -->
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_shield"
+                    android:contentDescription="AI explanation" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="AI Explanation"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:textColor="@color/text_primary"
+                    android:layout_marginStart="10dp" />
+            </LinearLayout>
+
+            <!-- Loading indicator shown while Gemma processes -->
+            <ProgressBar
+                android:id="@+id/aiLoadingSpinner"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:indeterminateTint="@color/accent"
+                android:visibility="gone" />
+
+            <!-- AI response text, placeholder for now -->
+            <TextView
+                android:id="@+id/aiExplanationTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="AI explanation will appear here once Gemma is integrated."
+                android:textSize="14sp"
+                android:textColor="@color/text_muted"
+                android:fontFamily="sans-serif"
+                android:lineSpacingExtra="5dp" />
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -117,3 +117,4 @@ Build the Scam Library screen and add a Learn button to the main screen header.
 
 ### Next step
 Add an AI Explanation placeholder card to the results screen, then begin Gemma on-device integration.
+
