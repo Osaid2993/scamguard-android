@@ -39,6 +39,10 @@ dependencies {
     implementation(libs.core.splashscreen)
     implementation(libs.recyclerview)
     implementation(libs.cardview)
+    
+    // Room
+    implementation(libs.room.runtime)
+    annotationProcessor(libs.room.compiler)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

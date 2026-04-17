@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
 import java.util.regex.Pattern;
 
 public class ResultsActivity extends AppCompatActivity {
@@ -76,7 +77,7 @@ public class ResultsActivity extends AppCompatActivity {
                 {"bank", "account", "transaction", "card", "credit card"},
                 {"delivery", "package", "parcel", "courier", "shipping"},
                 {"ato", "government", "tax", "medicare", "centrelink", "fine", "penalty"},
-                {"won", "winner", "claim prize", "reward", "congratulations"},
+                {"won", "winner", "claim prize", "reward", "gift", "congratulations"},
                 {"marketplace", "buyer", "seller", "item", "listing", "pickup"}
         };
 
@@ -228,6 +229,19 @@ public class ResultsActivity extends AppCompatActivity {
 
         redFlagsTextView.setText(redFlags.toString().trim());
         safeGuidanceTextView.setText(getGuidance(scamType, riskLevel));
+
+        // Save this analysis to the local Room database
+        String snippet = message.length() > 80
+                ? message.substring(0, 80) + "..."
+                : message;
+
+        ScanRecord record = new ScanRecord(
+                snippet, riskLevel, scamType, source, System.currentTimeMillis()
+        );
+
+        Executors.newSingleThreadExecutor().execute(() -> {
+            ScamGuardDatabase.getInstance(this).scanRecordDao().insert(record);
+        });
     }
 
     private boolean containsAny(String text, String... keywords) {

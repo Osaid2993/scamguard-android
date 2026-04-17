@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -59,6 +60,12 @@ public class MainActivity extends AppCompatActivity {
         TextView learnButton = findViewById(R.id.learnButton);
         learnButton.setOnClickListener(v -> {
             startActivity(new Intent(MainActivity.this, ScamLibraryActivity.class));
+        });
+
+        // History button opens past scan results
+        ImageView historyButton = findViewById(R.id.historyButton);
+        historyButton.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this, HistoryActivity.class));
         });
 
         pasteClipboardButton.setOnClickListener(v -> {

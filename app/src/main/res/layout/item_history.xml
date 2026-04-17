@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_card"
+    android:padding="16dp"
+    android:layout_marginBottom="12dp"
+    android:layout_marginStart="22dp"
+    android:layout_marginEnd="22dp">
+
+    <!-- Top row: risk level and scam type -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="8dp">
+
+        <!-- Risk badge -->
+        <TextView
+            android:id="@+id/historyRiskLevel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="High"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/risk_high"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp" />
+
+        <!-- Scam type -->
+        <TextView
+            android:id="@+id/historyScamType"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Bank impersonation scam"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:layout_marginStart="10dp"
+            android:singleLine="true"
+            android:ellipsize="end" />
+    </LinearLayout>
+
+    <!-- Message snippet -->
+    <TextView
+        android:id="@+id/historySnippet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="URGENT: Your bank account will be suspended..."
+        android:textSize="13sp"
+        android:textColor="@color/text_secondary"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Bottom row: source and timestamp -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <!-- Source -->
+        <TextView
+            android:id="@+id/historySource"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SMS"
+            android:textSize="12sp"
+            android:textColor="@color/text_muted" />
+
+        <!-- Dot separator -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" · "
+            android:textSize="12sp"
+            android:textColor="@color/text_muted" />
+
+        <!-- Timestamp -->
+        <TextView
+            android:id="@+id/historyTimestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="17 Apr 2026, 10:30 AM"
+            android:textSize="12sp"
+            android:textColor="@color/text_muted" />
+    </LinearLayout>
+
+</LinearLayout>

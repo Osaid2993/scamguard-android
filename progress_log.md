@@ -118,3 +118,12 @@ Build the Scam Library screen and add a Learn button to the main screen header.
 ### Next step
 Add an AI Explanation placeholder card to the results screen, then begin Gemma on-device integration.
 
+## 18 April 2026 
+
+- Added a Learn button to the main screen header that opens the Scam Library.
+- Built the Scam Library screen with six scam pattern cards, each with a description and a Try Example button that sends a realistic scam message back to the main screen via Intent.
+- Added an AI Explanation placeholder card to the results screen with a hidden loading spinner, ready for Gemma integration.
+- Built a scan history feature using Room database. Each analysis is saved automatically with a message snippet, risk level, scam type, source, and timestamp. Added a History screen accessible via a clock icon in the main screen header, showing past scans in a RecyclerView sorted newest first. Included a Clear button to wipe history and an empty state message when no scans exist.
+
+### Next step
+Begin Gemma on-device integration using MediaPipe LLM Inference API.
