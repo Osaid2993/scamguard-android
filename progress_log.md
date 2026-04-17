@@ -109,3 +109,11 @@ Add original message card to the results screen.
 
 ### Next step
 Build the Scam Library screen and add a Learn button to the main screen header.
+
+- Added a Learn button to the main screen header that opens the new Scam Library screen.
+- Built the Scam Library screen with six scam pattern cards (bank impersonation, fake delivery, government/tax, prize/reward, OTP, marketplace). Each card includes a short description and a Try Example button.
+- Try Example sends a realistic scam message back to the main screen via Intent, pre-filling the text input so the user can immediately tap Analyse and see the detection in action.
+- Fixed a back-stack issue where the pre-filled message was not appearing because MainActivity was being reused. Added onNewIntent to handle intents when the activity already exists.
+
+### Next step
+Add an AI Explanation placeholder card to the results screen, then begin Gemma on-device integration.

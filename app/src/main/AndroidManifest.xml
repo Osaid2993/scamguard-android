@@ -13,6 +13,7 @@
         android:theme="@style/Theme.ScamGuard">
 
         <activity android:name=".ResultsActivity" />
+        <activity android:name=".ScamLibraryActivity" />
 
         <activity
             android:name=".SplashActivity"

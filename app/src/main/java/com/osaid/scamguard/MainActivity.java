@@ -38,6 +38,12 @@ public class MainActivity extends AppCompatActivity {
         TextView tryExampleButton = findViewById(R.id.tryExampleButton);
         EditText messageEditText = findViewById(R.id.messageEditText);
 
+        // Check if we arrived from the Scam Library with a pre-filled example
+        String prefill = getIntent().getStringExtra("prefill_message");
+        if (prefill != null && !prefill.isEmpty()) {
+            messageEditText.setText(prefill);
+        }
+
         RadioGroup sourceGroup = findViewById(R.id.sourceGroup);
         RadioButton radioSms = findViewById(R.id.radioSms);
         RadioButton radioEmail = findViewById(R.id.radioEmail);
@@ -48,6 +54,12 @@ public class MainActivity extends AppCompatActivity {
         Chip chipMoney = findViewById(R.id.chipMoney);
         Chip chipOtp = findViewById(R.id.chipOtp);
         Chip chipUnknown = findViewById(R.id.chipUnknown);
+
+        // Learn button opens the Scam Library screen
+        TextView learnButton = findViewById(R.id.learnButton);
+        learnButton.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this, ScamLibraryActivity.class));
+        });
 
         pasteClipboardButton.setOnClickListener(v -> {
             ClipboardManager clipboard =
@@ -106,5 +118,16 @@ public class MainActivity extends AppCompatActivity {
             intent.putStringArrayListExtra("selected_concerns", selectedConcerns);
             startActivity(intent);
         });
+    }
+
+    // Handles intents when MainActivity is reused from the back stack
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        String prefill = intent.getStringExtra("prefill_message");
+        if (prefill != null && !prefill.isEmpty()) {
+            EditText messageEditText = findViewById(R.id.messageEditText);
+            messageEditText.setText(prefill);
+        }
     }
 }

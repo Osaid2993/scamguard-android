@@ -30,13 +30,30 @@
                 android:contentDescription="ScamGuard shield" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="ScamGuard"
                 android:textSize="28sp"
                 android:textStyle="bold"
                 android:textColor="@color/text_primary"
                 android:layout_marginStart="10dp" />
+
+            <TextView
+                android:id="@+id/learnButton"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:text="Learn"
+                android:textColor="@color/accent"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textAllCaps="false"
+                android:gravity="center"
+                android:background="@drawable/bg_button_secondary"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp"
+                android:clickable="true"
+                android:focusable="true" />
         </LinearLayout>
 
         <TextView
