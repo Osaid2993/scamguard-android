@@ -1,19 +1,24 @@
 package com.osaid.scamguard;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.regex.Pattern;
 
@@ -27,6 +32,9 @@ public class ResultsActivity extends AppCompatActivity {
     private TextView safeGuidanceTextView;
     private TextView originalMessageTextView;
     private LinearLayout riskBadgeContainer;
+    private TextView aiExplanationTextView;
+    private ProgressBar aiLoadingSpinner;
+    private LinearLayout aiExplanationContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +49,32 @@ public class ResultsActivity extends AppCompatActivity {
         safeGuidanceTextView = findViewById(R.id.safeGuidanceTextView);
         originalMessageTextView = findViewById(R.id.originalMessageTextView);
         riskBadgeContainer = findViewById(R.id.riskBadgeContainer);
+        aiExplanationTextView = findViewById(R.id.aiExplanationTextView);
+        aiLoadingSpinner = findViewById(R.id.aiLoadingSpinner);
+        aiExplanationContainer = findViewById(R.id.aiExplanationContainer);
 
         ImageButton backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(v -> finish());
+
+        // Share button
+        TextView shareButton = findViewById(R.id.shareButton);
+        shareButton.setOnClickListener(v -> shareAnalysis());
+
+        // Report button opens Scamwatch in the browser
+        TextView reportButton = findViewById(R.id.reportButton);
+        reportButton.setOnClickListener(v -> {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                    android.net.Uri.parse("https://www.scamwatch.gov.au/report-a-scam"));
+            startActivity(browserIntent);
+        });
+
+        // New scan button returns to main screen
+        TextView newScanButton = findViewById(R.id.newScanButton);
+        newScanButton.setOnClickListener(v -> {
+            Intent intent = new Intent(ResultsActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+        });
 
         String message = getIntent().getStringExtra("message_text");
         String source = getIntent().getStringExtra("message_source");
@@ -62,6 +93,25 @@ public class ResultsActivity extends AppCompatActivity {
         }
 
         analyzeMessage(message, source, concerns);
+    }
+
+    // Builds a readable text summary and opens Android's share sheet
+    private void shareAnalysis() {
+        String summary = "ScamGuard Analysis Report\n"
+                + "━━━━━━━━━━━━━━━━━━━━\n\n"
+                + "Risk Level: " + riskLevelTextView.getText() + "\n"
+                + "Scam Type: " + scamTypeTextView.getText() + "\n"
+                + "Source: " + sourceTextView.getText() + "\n\n"
+                + "Red Flags:\n" + redFlagsTextView.getText() + "\n\n"
+                + "Safe Guidance:\n" + safeGuidanceTextView.getText() + "\n\n"
+                + "AI Explanation:\n" + aiExplanationTextView.getText() + "\n\n"
+                + "━━━━━━━━━━━━━━━━━━━━\n"
+                + "Analysed by ScamGuard - Private on-device scam analysis";
+
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, summary);
+        startActivity(Intent.createChooser(shareIntent, "Share analysis via"));
     }
 
     private SpannableString highlightSuspiciousText(String message) {
@@ -241,6 +291,56 @@ public class ResultsActivity extends AppCompatActivity {
 
         Executors.newSingleThreadExecutor().execute(() -> {
             ScamGuardDatabase.getInstance(this).scanRecordDao().insert(record);
+        });
+
+        // Request AI explanation using the rule engine findings
+        requestAiExplanation(message, source, riskLevel, scamType,
+                redFlags.toString().trim());
+    }
+
+    private void requestAiExplanation(String message, String source,
+                                      String riskLevel, String scamType,
+                                      String redFlagsText) {
+
+        // Show the loading spinner while the AI processes
+        aiLoadingSpinner.setVisibility(View.VISIBLE);
+        aiExplanationTextView.setText("Analysing with on-device AI...");
+        aiExplanationTextView.setTextColor(
+                ContextCompat.getColor(this, R.color.text_muted));
+
+        // Convert the red flags text block into a list for the prompt builder
+        List<String> redFlagsList = Arrays.asList(redFlagsText.split("\n"));
+
+        // Build the structured prompt from rule engine output
+        String prompt = PromptBuilder.build(
+                message, source, riskLevel, scamType, redFlagsList);
+
+        // Send to the AI model via the analyser
+        ScamAnalyser analyser = new OllamaAnalyser();
+        analyser.analyse(prompt, new ScamAnalyser.AnalysisCallback() {
+            @Override
+            public void onSuccess(String explanation) {
+                runOnUiThread(() -> {
+                    // Hide spinner and show the AI response
+                    aiLoadingSpinner.setVisibility(View.GONE);
+                    aiExplanationTextView.setText(explanation);
+                    aiExplanationTextView.setTextColor(
+                            ContextCompat.getColor(ResultsActivity.this, R.color.text_secondary));
+                });
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                runOnUiThread(() -> {
+                    // Hide spinner and show a graceful fallback message
+                    aiLoadingSpinner.setVisibility(View.GONE);
+                    aiExplanationTextView.setText(
+                            "AI explanation unavailable. The rule-based analysis above "
+                                    + "remains valid. Please check that the AI service is running.");
+                    aiExplanationTextView.setTextColor(
+                            ContextCompat.getColor(ResultsActivity.this, R.color.text_muted));
+                });
+            }
         });
     }
 
