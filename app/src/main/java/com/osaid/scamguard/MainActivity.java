@@ -5,6 +5,8 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -68,6 +70,27 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this, HistoryActivity.class));
         });
 
+        // Clear button empties the message input
+        TextView clearMessageButton = findViewById(R.id.clearMessageButton);
+        clearMessageButton.setOnClickListener(v -> {
+            messageEditText.setText("");
+        });
+
+        // Live character count updates as the user types or pastes
+        TextView charCountText = findViewById(R.id.charCountText);
+        messageEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                charCountText.setText(s.length() + " chars");
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
         pasteClipboardButton.setOnClickListener(v -> {
             ClipboardManager clipboard =
                     (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
@@ -119,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
             if (chipOtp.isChecked()) selectedConcerns.add("Requests OTP");
             if (chipUnknown.isChecked()) selectedConcerns.add("Unknown Sender");
 
-            Intent intent = new Intent(MainActivity.this, ResultsActivity.class);
+            Intent intent = new Intent(MainActivity.this, ScanningActivity.class);
             intent.putExtra("message_text", message);
             intent.putExtra("message_source", source);
             intent.putStringArrayListExtra("selected_concerns", selectedConcerns);

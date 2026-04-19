@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_base">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_gravity="center">
+
+        <!-- Spinning progress ring -->
+        <ProgressBar
+            android:id="@+id/scanningSpinner"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:indeterminateTint="@color/accent"
+            android:layout_marginBottom="28dp" />
+
+        <!-- Step text that changes during the animation -->
+        <TextView
+            android:id="@+id/scanningStepText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reading message..."
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary" />
+
+        <!-- Subtitle -->
+        <TextView
+            android:id="@+id/scanningSubText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Analysing with ScamGuard"
+            android:textSize="13sp"
+            android:textColor="@color/text_muted"
+            android:layout_marginTop="8dp" />
+
+        <!-- Progress dots -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="32dp">
+
+            <View
+                android:id="@+id/dot1"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:background="@drawable/bg_dot"
+                android:layout_marginEnd="12dp" />
+
+            <View
+                android:id="@+id/dot2"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:background="@drawable/bg_dot"
+                android:layout_marginEnd="12dp" />
+
+            <View
+                android:id="@+id/dot3"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:background="@drawable/bg_dot"
+                android:layout_marginEnd="12dp" />
+
+            <View
+                android:id="@+id/dot4"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:background="@drawable/bg_dot" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>
