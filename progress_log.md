@@ -137,3 +137,11 @@ Add a confidence bar to the results screen, then the scanning animation.
 
 ### Next step
 Add a scanning animation screen between the main screen and the results screen.
+
+## 20 April 2026
+
+- Built a scanning animation screen that plays between the main screen and the results screen. Shows a teal spinner, cycling step text (Reading message, Checking patterns, Analysing risk, Preparing results), and progress dots that light up sequentially. The screen passes all intent data through to ResultsActivity and fades out after 2.2 seconds. This gives the impression of real processing and makes the app feel alive.
+- Added the clear button and added a live character counter inside the message input box, separated by a thin divider line matching the app's outline style. Renamed the primary button from "Analyse for Scams" to "Scan Message" to match the new scanning animation flow.
+
+### Next step
+Continue refining the UI and UX across all screens.
