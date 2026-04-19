@@ -125,5 +125,15 @@ Add an AI Explanation placeholder card to the results screen, then begin Gemma o
 - Added an AI Explanation placeholder card to the results screen with a hidden loading spinner, ready for Gemma integration.
 - Built a scan history feature using Room database. Each analysis is saved automatically with a message snippet, risk level, scam type, source, and timestamp. Added a History screen accessible via a clock icon in the main screen header, showing past scans in a RecyclerView sorted newest first. Included a Clear button to wipe history and an empty state message when no scans exist.
 
+## 19 April 2026
+
+- Added three sticky action buttons to the bottom of the results screen: Share (opens Android share sheet with a text summary of the analysis), Report (opens Scamwatch report page in the browser), and New Scan (returns to the main screen). Buttons sit outside the ScrollView so they stay visible while scrolling.
+- Created ic_share, ic_report, and ic_new_scan vector drawables for the button icons.
+
 ### Next step
-Begin Gemma on-device integration using MediaPipe LLM Inference API.
+Add a confidence bar to the results screen, then the scanning animation.
+
+- Added an animated confidence bar inside the risk verdict badge. The bar calculates a confidence percentage from the rule engine's risk score, then animates from zero to the target width over one second with a decelerate curve. The fill colour matches the risk level (red, amber, blue, green) and sits on a dark navy track.
+
+### Next step
+Add a scanning animation screen between the main screen and the results screen.

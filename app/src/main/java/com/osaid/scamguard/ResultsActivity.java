@@ -8,6 +8,7 @@ import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -35,6 +36,8 @@ public class ResultsActivity extends AppCompatActivity {
     private TextView aiExplanationTextView;
     private ProgressBar aiLoadingSpinner;
     private LinearLayout aiExplanationContainer;
+    private View confidenceBarFill;
+    private TextView confidenceTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,8 @@ public class ResultsActivity extends AppCompatActivity {
         aiExplanationTextView = findViewById(R.id.aiExplanationTextView);
         aiLoadingSpinner = findViewById(R.id.aiLoadingSpinner);
         aiExplanationContainer = findViewById(R.id.aiExplanationContainer);
+        confidenceBarFill = findViewById(R.id.confidenceBarFill);
+        confidenceTextView = findViewById(R.id.confidenceTextView);
 
         ImageButton backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(v -> finish());
@@ -279,6 +284,34 @@ public class ResultsActivity extends AppCompatActivity {
 
         redFlagsTextView.setText(redFlags.toString().trim());
         safeGuidanceTextView.setText(getGuidance(scamType, riskLevel));
+
+        // Calculate confidence as a percentage based on risk score (capped at 100)
+        int maxScore = 15;
+        int confidencePercent = Math.min((riskScore * 100) / maxScore, 100);
+
+        confidenceTextView.setText(confidencePercent + "% confidence");
+
+        // Animate the bar fill from 0 to the target width
+        confidenceBarFill.setBackgroundColor(ContextCompat.getColor(this, riskColor));
+
+        // Delay the animation slightly so the layout is measured first
+        confidenceBarFill.getLayoutParams().width = 0;
+        confidenceBarFill.requestLayout();
+
+        confidenceBarFill.postDelayed(() -> {
+            int parentWidth = ((FrameLayout) confidenceBarFill.getParent()).getWidth();
+            int targetWidth = (parentWidth * confidencePercent) / 100;
+
+            android.animation.ValueAnimator animator =
+                    android.animation.ValueAnimator.ofInt(0, targetWidth);
+            animator.setDuration(1000);
+            animator.setInterpolator(new android.view.animation.DecelerateInterpolator());
+            animator.addUpdateListener(animation -> {
+                confidenceBarFill.getLayoutParams().width = (int) animation.getAnimatedValue();
+                confidenceBarFill.requestLayout();
+            });
+            animator.start();
+        }, 300);
 
         // Save this analysis to the local Room database
         String snippet = message.length() > 80
