@@ -285,9 +285,23 @@ public class ResultsActivity extends AppCompatActivity {
         redFlagsTextView.setText(redFlags.toString().trim());
         safeGuidanceTextView.setText(getGuidance(scamType, riskLevel));
 
-        // Calculate confidence as a percentage based on risk score (capped at 100)
-        int maxScore = 15;
-        int confidencePercent = Math.min((riskScore * 100) / maxScore, 100);
+        // Map risk score to a meaningful confidence percentage
+        int confidencePercent;
+        if (riskScore >= 10) {
+            confidencePercent = 95;
+        } else if (riskScore >= 8) {
+            confidencePercent = 85;
+        } else if (riskScore >= 7) {
+            confidencePercent = 75;
+        } else if (riskScore >= 5) {
+            confidencePercent = 60;
+        } else if (riskScore >= 4) {
+            confidencePercent = 45;
+        } else if (riskScore >= 2) {
+            confidencePercent = 25;
+        } else {
+            confidencePercent = 10;
+        }
 
         confidenceTextView.setText(confidencePercent + "% confidence");
 
