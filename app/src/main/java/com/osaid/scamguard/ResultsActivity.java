@@ -285,6 +285,34 @@ public class ResultsActivity extends AppCompatActivity {
         riskBadgeContainer.setBackgroundResource(badgeBackground);
         riskIconView.setImageResource(riskIcon);
 
+        // Pulse entrance animation on the risk icon
+        riskIconView.setScaleX(0.5f);
+        riskIconView.setScaleY(0.5f);
+        riskIconView.setAlpha(0f);
+
+        riskIconView.animate()
+                .alpha(1f)
+                .scaleX(1f)
+                .scaleY(1f)
+                .setDuration(600)
+                .setInterpolator(new android.view.animation.OvershootInterpolator(1.5f))
+                .start();
+
+        // Continuous pulse on the risk icon (3 times)
+        android.animation.ObjectAnimator pulseX = android.animation.ObjectAnimator.ofFloat(
+                riskIconView, "scaleX", 1f, 1.15f, 1f);
+        pulseX.setDuration(1200);
+        pulseX.setRepeatCount(3);
+        pulseX.setStartDelay(700);
+        pulseX.start();
+
+        android.animation.ObjectAnimator pulseY = android.animation.ObjectAnimator.ofFloat(
+                riskIconView, "scaleY", 1f, 1.15f, 1f);
+        pulseY.setDuration(1200);
+        pulseY.setRepeatCount(3);
+        pulseY.setStartDelay(700);
+        pulseY.start();
+
         scamTypeTextView.setText(scamType);
 
         if (redFlags.length() == 0) {

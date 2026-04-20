@@ -1,5 +1,6 @@
 package com.osaid.scamguard;
 
+import android.animation.ValueAnimator;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -7,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.chip.Chip;
 
@@ -31,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
             "Your verification code is 549281. Please share this code with our support agent to confirm your identity."
     };
 
+    private ValueAnimator shimmerAnimator;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
         TextView pasteClipboardButton = findViewById(R.id.pasteClipboardButton);
         TextView tryExampleButton = findViewById(R.id.tryExampleButton);
         EditText messageEditText = findViewById(R.id.messageEditText);
+
+        // Start with muted scan button
+        analyzeButton.setBackgroundResource(R.drawable.bg_button_primary_disabled);
+        analyzeButton.setTextColor(ContextCompat.getColor(this, R.color.text_muted));
 
         // Check if we arrived from the Scam Library with a pre-filled example
         String prefill = getIntent().getStringExtra("prefill_message");
@@ -70,8 +79,10 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this, HistoryActivity.class));
         });
 
-        // Clear button empties the message input
+        // Hide clear button initially
         TextView clearMessageButton = findViewById(R.id.clearMessageButton);
+        clearMessageButton.setVisibility(View.GONE);
+
         clearMessageButton.setOnClickListener(v -> {
             messageEditText.setText("");
         });
@@ -85,6 +96,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 charCountText.setText(s.length() + " chars");
+                // Show clear button only when there is text
+                clearMessageButton.setVisibility(s.length() > 0 ? View.VISIBLE : View.GONE);
+
+                // Activate scan button when text is present
+                if (s.length() > 0) {
+                    analyzeButton.setBackgroundResource(R.drawable.bg_button_primary);
+                    analyzeButton.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.bg_base));
+                    startShimmer(analyzeButton);
+                } else {
+                    analyzeButton.setBackgroundResource(R.drawable.bg_button_primary_disabled);
+                    analyzeButton.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.text_muted));
+                    stopShimmer();
+                    analyzeButton.setAlpha(1.0f); // Reset alpha when disabled
+                }
             }
 
             @Override
@@ -148,6 +173,28 @@ public class MainActivity extends AppCompatActivity {
             intent.putStringArrayListExtra("selected_concerns", selectedConcerns);
             startActivity(intent);
         });
+    }
+
+    private void startShimmer(View button) {
+        if (shimmerAnimator != null && shimmerAnimator.isRunning()) return;
+
+        shimmerAnimator = ValueAnimator.ofFloat(-1f, 2f);
+        shimmerAnimator.setDuration(2000);
+        shimmerAnimator.setRepeatCount(ValueAnimator.INFINITE);
+        shimmerAnimator.addUpdateListener(animation -> {
+            float value = (float) animation.getAnimatedValue();
+            // Create a subtle alpha pulse that follows the shimmer position
+            float alpha = 1f - (Math.abs(value - 0.5f) * 0.15f);
+            button.setAlpha(alpha);
+        });
+        shimmerAnimator.start();
+    }
+
+    private void stopShimmer() {
+        if (shimmerAnimator != null) {
+            shimmerAnimator.cancel();
+            shimmerAnimator = null;
+        }
     }
 
     // Handles intents when MainActivity is reused from the back stack

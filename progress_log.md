@@ -153,3 +153,15 @@ Continue refining the UI and UX across all screens.
 
 ### Next step
 Continue refining the UI and UX across all screens.
+
+## 21 April 2026 
+
+- Enhanced the scanning screen with dual concentric rings using sweep gradients that spin in opposite directions (outer clockwise at 0.9s, inner counter-clockwise at 1.4s), creating a radar/sonar feel. Added the shield icon at the centre with a fade-in and continuous pulse animation. Updated step text to four analysis stages: reading message structure, scanning for malicious URLs, analysing tone and tactics, running AI verdict. Progress dots now widen into pills as each step completes.
+- Added scan button activation effect: button starts muted/dim when no text is entered and transitions to bright teal when the user types or pastes a message.
+- Added risk-specific icons to the verdict badge (shield-X for High, triangle for Medium, info circle for Low, shield-check for Minimal) and centred all badge content.
+- Added trust stats bar to the main screen with scams caught, accuracy, and scan time.
+- Made clear button only visible when text is present.
+- Made headers sticky on results and Scam Library screens.
+
+### Next step
+Continue refining the UI and UX across all screens.

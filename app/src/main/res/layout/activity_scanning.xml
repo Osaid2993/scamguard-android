@@ -11,35 +11,63 @@
         android:gravity="center"
         android:layout_gravity="center">
 
-        <!-- Spinning progress ring -->
-        <ProgressBar
-            android:id="@+id/scanningSpinner"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:indeterminateTint="@color/accent"
-            android:layout_marginBottom="28dp" />
+        <!-- Dual spinning rings with AI icon in centre -->
+        <FrameLayout
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="32dp">
 
-        <!-- Step text that changes during the animation -->
+            <!-- Outer ring spins clockwise -->
+            <ImageView
+                android:id="@+id/outerRing"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:src="@drawable/ring_outer"
+                android:layout_gravity="center" />
+
+            <!-- Inner ring spins counter-clockwise -->
+            <ImageView
+                android:id="@+id/innerRing"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ring_inner"
+                android:layout_gravity="center" />
+
+            <!-- Shield icon at centre -->
+            <ImageView
+                android:id="@+id/aiIcon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_shield"
+                android:layout_gravity="center"
+                android:alpha="0"
+                android:scaleX="0.7"
+                android:scaleY="0.7"
+                android:contentDescription="ScamGuard" />
+        </FrameLayout>
+
+        <!-- Main step text -->
         <TextView
             android:id="@+id/scanningStepText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reading message..."
+            android:text="Reading message structure..."
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/text_primary" />
 
-        <!-- Subtitle -->
+        <!-- Typing dots subtitle -->
         <TextView
             android:id="@+id/scanningSubText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Analysing with ScamGuard"
+            android:text="Analysing..."
             android:textSize="13sp"
             android:textColor="@color/text_muted"
             android:layout_marginTop="8dp" />
 
-        <!-- Progress dots -->
+        <!-- Progress pills -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
