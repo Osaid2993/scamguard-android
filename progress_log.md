@@ -145,3 +145,11 @@ Add a scanning animation screen between the main screen and the results screen.
 
 ### Next step
 Continue refining the UI and UX across all screens.
+
+- Added four risk-specific icons to the verdict badge: shield-X for High, warning triangle for Medium, info circle for Low, and shield-check for Minimal. Each icon matches the risk colour and swaps dynamically based on the analysis result.
+- Centred all text and the icon inside the risk verdict badge for a cleaner, more impactful layout.
+- Added a trust stats bar to the main screen showing "1.2M Scams Caught", "98.7% Accuracy", and "<1s Scan Time" as prototype-level design elements to build user confidence.
+- Updated the tagline below the app name to "Paste any suspicious message below. We'll analyse it instantly." for a clearer call to action.
+
+### Next step
+Continue refining the UI and UX across all screens.

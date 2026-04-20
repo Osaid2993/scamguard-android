@@ -10,6 +10,7 @@ import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -38,6 +39,7 @@ public class ResultsActivity extends AppCompatActivity {
     private LinearLayout aiExplanationContainer;
     private View confidenceBarFill;
     private TextView confidenceTextView;
+    private ImageView riskIconView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,7 @@ public class ResultsActivity extends AppCompatActivity {
         aiExplanationContainer = findViewById(R.id.aiExplanationContainer);
         confidenceBarFill = findViewById(R.id.confidenceBarFill);
         confidenceTextView = findViewById(R.id.confidenceTextView);
+        riskIconView = findViewById(R.id.riskIconView);
 
         ImageButton backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(v -> finish());
@@ -253,28 +256,34 @@ public class ResultsActivity extends AppCompatActivity {
         String riskLevel;
         int riskColor;
         int badgeBackground;
+        int riskIcon;
 
         if (riskScore >= 7) {
             riskLevel = "High";
             riskColor = R.color.risk_high;
             badgeBackground = R.drawable.bg_risk_high;
+            riskIcon = R.drawable.ic_risk_high;
         } else if (riskScore >= 4) {
             riskLevel = "Medium";
             riskColor = R.color.risk_medium;
             badgeBackground = R.drawable.bg_risk_medium;
+            riskIcon = R.drawable.ic_risk_medium;
         } else if (riskScore >= 2) {
             riskLevel = "Low";
             riskColor = R.color.risk_low;
             badgeBackground = R.drawable.bg_risk_low;
+            riskIcon = R.drawable.ic_risk_low;
         } else {
             riskLevel = "Minimal";
             riskColor = R.color.risk_minimal;
             badgeBackground = R.drawable.bg_risk_minimal;
+            riskIcon = R.drawable.ic_risk_minimal;
         }
 
         riskLevelTextView.setText(riskLevel);
         riskLevelTextView.setTextColor(ContextCompat.getColor(this, riskColor));
         riskBadgeContainer.setBackgroundResource(badgeBackground);
+        riskIconView.setImageResource(riskIcon);
 
         scamTypeTextView.setText(scamType);
 

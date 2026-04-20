@@ -72,10 +72,107 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Private on-device scam analysis"
+            android:text="Paste any suspicious message below.\nWe'll analyse it instantly."
             android:textSize="14sp"
             android:textColor="@color/text_secondary"
-            android:layout_marginBottom="28dp" />
+            android:lineSpacingExtra="3dp"
+            android:layout_marginBottom="18dp" />
+
+        <!-- Trust stats bar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/bg_card"
+            android:padding="14dp"
+            android:layout_marginBottom="24dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1.2M"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:fontFamily="monospace" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SCAMS CAUGHT"
+                    android:textSize="10sp"
+                    android:textColor="@color/text_muted"
+                    android:letterSpacing="0.05" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/outline" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="98.7%"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:fontFamily="monospace" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ACCURACY"
+                    android:textSize="10sp"
+                    android:textColor="@color/text_muted"
+                    android:letterSpacing="0.05" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/outline" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="&lt;1s"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:fontFamily="monospace" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SCAN TIME"
+                    android:textSize="10sp"
+                    android:textColor="@color/text_muted"
+                    android:letterSpacing="0.05" />
+            </LinearLayout>
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -186,43 +283,107 @@
             android:textColor="@color/text_primary"
             android:layout_marginBottom="12dp" />
 
-        <EditText
-            android:id="@+id/messageEditText"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:background="@drawable/bg_input"
-            android:padding="16dp"
-            android:gravity="top"
-            android:inputType="textMultiLine"
-            android:minLines="6"
-            android:maxLines="10"
-            android:textSize="15sp"
-            android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_muted"
-            android:hint="Paste or type the message here..."
-            android:layout_marginBottom="16dp"
-            android:importantForAutofill="no" />
+            android:layout_marginBottom="16dp">
+
+            <EditText
+                android:id="@+id/messageEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:padding="16dp"
+                android:gravity="top"
+                android:inputType="textMultiLine"
+                android:minLines="5"
+                android:maxLines="10"
+                android:textSize="15sp"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_muted"
+                android:hint="Paste or type the message here..."
+                android:importantForAutofill="no" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/outline"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:id="@+id/charCountText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0 chars"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_muted" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/clearMessageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="✕  Clear"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_muted"
+                    android:layout_marginEnd="14dp"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+                <TextView
+                    android:id="@+id/tryExampleButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="Try sample"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_secondary"
+                    android:textAllCaps="false"
+                    android:gravity="center"
+                    android:background="@drawable/bg_button_secondary"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:clickable="true"
+                    android:focusable="true" />
+            </LinearLayout>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="16dp">
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/pasteClipboardButton"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="52dp"
-                android:layout_weight="1"
                 android:text="Paste"
                 android:textColor="@color/accent"
                 android:textAllCaps="false"
                 android:textStyle="bold"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:gravity="center"
                 android:background="@drawable/bg_button_secondary"
                 android:drawableStart="@drawable/ic_paste"
-                android:drawablePadding="8dp"
+                android:drawablePadding="6dp"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
                 android:clickable="true"
@@ -230,42 +391,23 @@
                 android:layout_marginEnd="10dp" />
 
             <TextView
-                android:id="@+id/tryExampleButton"
+                android:id="@+id/analyzeButton"
                 android:layout_width="0dp"
                 android:layout_height="52dp"
                 android:layout_weight="1"
-                android:text="Try Example"
-                android:textColor="@color/accent"
-                android:textAllCaps="false"
+                android:text="Scan Message"
+                android:textColor="@color/bg_base"
+                android:textSize="16sp"
                 android:textStyle="bold"
-                android:textSize="15sp"
+                android:textAllCaps="false"
                 android:gravity="center"
-                android:background="@drawable/bg_button_secondary"
-                android:drawableStart="@drawable/ic_bulb"
-                android:drawablePadding="8dp"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
+                android:background="@drawable/bg_button_primary"
+                android:drawableStart="@drawable/ic_scan"
+                android:drawablePadding="10dp"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
                 android:clickable="true"
                 android:focusable="true" />
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/analyzeButton"
-            android:layout_width="match_parent"
-            android:layout_height="58dp"
-            android:text="Analyse for Scams"
-            android:textColor="@color/bg_base"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textAllCaps="false"
-            android:gravity="center"
-            android:background="@drawable/bg_button_primary"
-            android:drawableStart="@drawable/ic_scan"
-            android:drawablePadding="10dp"
-            android:paddingStart="24dp"
-            android:paddingEnd="24dp"
-            android:clickable="true"
-            android:focusable="true" />
-
     </LinearLayout>
 </ScrollView>

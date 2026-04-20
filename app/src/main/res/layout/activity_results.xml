@@ -67,7 +67,16 @@
                 android:orientation="vertical"
                 android:background="@drawable/bg_risk_high"
                 android:padding="22dp"
+                android:gravity="center_horizontal"
                 android:layout_marginBottom="22dp">
+
+                <ImageView
+                    android:id="@+id/riskIconView"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_risk_high"
+                    android:contentDescription="Risk icon"
+                    android:layout_marginBottom="12dp" />
 
                 <TextView
                     android:id="@+id/riskLevelTextView"
@@ -81,14 +90,13 @@
 
                 <TextView
                     android:id="@+id/scamTypeTextView"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Bank impersonation scam"
                     android:textSize="15sp"
                     android:textColor="@color/text_primary"
                     android:layout_marginTop="4dp" />
 
-                <!-- Confidence bar -->
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="10dp"
@@ -102,7 +110,6 @@
                         android:background="@color/risk_high" />
                 </FrameLayout>
 
-                <!-- Confidence percentage text -->
                 <TextView
                     android:id="@+id/confidenceTextView"
                     android:layout_width="wrap_content"
