@@ -165,3 +165,9 @@ Continue refining the UI and UX across all screens.
 
 ### Next step
 Continue refining the UI and UX across all screens.
+
+- Added a bounce-in entry animation and 3-pulse effect on the risk verdict icon so the verdict feels like it's landing with impact.
+- Added thin divider lines between the source selector radio buttons for visual separation.
+
+### Next step
+Continue refining the UI and UX across all screens.

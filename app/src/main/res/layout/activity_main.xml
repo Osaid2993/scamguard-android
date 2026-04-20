@@ -201,6 +201,13 @@
                 android:padding="10dp"
                 android:buttonTint="@color/accent" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/outline"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp" />
+
             <RadioButton
                 android:id="@+id/radioEmail"
                 android:layout_width="match_parent"
@@ -209,6 +216,13 @@
                 android:textColor="@color/text_primary"
                 android:padding="10dp"
                 android:buttonTint="@color/accent" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/outline"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp" />
 
             <RadioButton
                 android:id="@+id/radioSocial"
