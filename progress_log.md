@@ -171,3 +171,8 @@ Continue refining the UI and UX across all screens.
 
 ### Next step
 Continue refining the UI and UX across all screens.
+
+- Styled the suspicion tag chips to match the dark teal theme. Unselected chips show transparent fill with a subtle outline and grey text. Selected chips transition to dim teal fill, bright teal border, bright teal text, and a teal checkmark. Handled in Java via setOnCheckedChangeListener because Material 3 Chip overrides XML colour attributes.
+
+### Next step
+Build History screen filter chips and summary cards.

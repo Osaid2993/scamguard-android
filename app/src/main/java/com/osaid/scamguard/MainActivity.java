@@ -67,6 +67,35 @@ public class MainActivity extends AppCompatActivity {
         Chip chipOtp = findViewById(R.id.chipOtp);
         Chip chipUnknown = findViewById(R.id.chipUnknown);
 
+        // Style the suspicion chips to match the teal theme
+        Chip[] chips = {chipUrgent, chipLink, chipMoney, chipOtp, chipUnknown};
+        for (Chip chip : chips) {
+            chip.setChipBackgroundColor(android.content.res.ColorStateList.valueOf(
+                    ContextCompat.getColor(this, android.R.color.transparent)));
+            chip.setChipStrokeColor(android.content.res.ColorStateList.valueOf(
+                    ContextCompat.getColor(this, R.color.outline)));
+            chip.setChipStrokeWidth(3f);
+            chip.setTextColor(ContextCompat.getColor(this, R.color.text_secondary));
+            chip.setCheckedIconTint(android.content.res.ColorStateList.valueOf(
+                    ContextCompat.getColor(this, R.color.accent)));
+
+            chip.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (isChecked) {
+                    chip.setChipBackgroundColor(android.content.res.ColorStateList.valueOf(
+                            ContextCompat.getColor(this, R.color.accent_soft)));
+                    chip.setChipStrokeColor(android.content.res.ColorStateList.valueOf(
+                            ContextCompat.getColor(this, R.color.accent)));
+                    chip.setTextColor(ContextCompat.getColor(this, R.color.accent));
+                } else {
+                    chip.setChipBackgroundColor(android.content.res.ColorStateList.valueOf(
+                            ContextCompat.getColor(this, android.R.color.transparent)));
+                    chip.setChipStrokeColor(android.content.res.ColorStateList.valueOf(
+                            ContextCompat.getColor(this, R.color.outline)));
+                    chip.setTextColor(ContextCompat.getColor(this, R.color.text_secondary));
+                }
+            });
+        }
+
         // Learn button opens the Scam Library screen
         TextView learnButton = findViewById(R.id.learnButton);
         learnButton.setOnClickListener(v -> {
