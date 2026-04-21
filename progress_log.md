@@ -77,6 +77,13 @@ Add more context to the rule-based logic or begin preparing the AI flow.
 - Chose a unified corner radius system: 14dp for interactive elements (buttons, inputs) and 18dp for surfaces (cards, risk badges). This creates a deliberate hierarchy where surfaces feel softer than interactive elements.
 - Kept the existing rule engine logic untouched. The redesign is purely a presentation layer change.
 
+## Discussing 
+- Discussed ScamGuard progress with Swathi during the weekly HD task discussion.
+- Updated her on the current prototype, including the working guided input flow, results screen, and rule-based analysis.
+- Received positive feedback on the amount of progress completed so far.
+- Swathi advised that the priority should be completing the app functionality to HD level first, and then focusing on the AI integration.
+- Discussed the goal of making the app strong enough to be worth including in my CV.
+
 ### Next step
 Redesign activity_main.xml using the new theme system, then redesign activity_results.xml with the risk badge hero, followed by the Scam Library screen and splash wiring.
 
@@ -176,3 +183,12 @@ Continue refining the UI and UX across all screens.
 
 ### Next step
 Build History screen filter chips and summary cards.
+
+## 22 April 2026 
+
+- Added risk-specific icons (shield-X, triangle, info circle, shield-check) to each history item alongside coloured risk level badges that match the results screen's visual language.
+- Switched history timestamps from full date format to relative time ("Just now", "3 min ago", "Yesterday", "2 weeks ago") for quicker scanning.
+- Updated filter chips to change colour based on risk tier when selected: red for High, amber for Medium, blue for Low, green for Minimal, teal for All.
+
+### Next step
+Continue refining the UI and UX, await tutor confirmation on AI approach.
