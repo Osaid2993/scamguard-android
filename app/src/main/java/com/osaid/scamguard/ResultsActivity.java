@@ -285,6 +285,20 @@ public class ResultsActivity extends AppCompatActivity {
         riskBadgeContainer.setBackgroundResource(badgeBackground);
         riskIconView.setImageResource(riskIcon);
 
+        // Save this analysis to the local Room database
+        String snippet = message.length() > 80
+                ? message.substring(0, 80) + "..."
+                : message;
+
+        ScanRecord record = new ScanRecord(
+                snippet, riskLevel, scamType, source, System.currentTimeMillis(),
+                message, redFlags.toString().trim()
+        );
+
+        Executors.newSingleThreadExecutor().execute(() -> {
+            ScamGuardDatabase.getInstance(this).scanRecordDao().insert(record);
+        });
+
         // Pulse entrance animation on the risk icon
         riskIconView.setScaleX(0.5f);
         riskIconView.setScaleY(0.5f);
@@ -363,19 +377,6 @@ public class ResultsActivity extends AppCompatActivity {
             });
             animator.start();
         }, 300);
-
-        // Save this analysis to the local Room database
-        String snippet = message.length() > 80
-                ? message.substring(0, 80) + "..."
-                : message;
-
-        ScanRecord record = new ScanRecord(
-                snippet, riskLevel, scamType, source, System.currentTimeMillis()
-        );
-
-        Executors.newSingleThreadExecutor().execute(() -> {
-            ScamGuardDatabase.getInstance(this).scanRecordDao().insert(record);
-        });
 
         // Request AI explanation using the rule engine findings
         requestAiExplanation(message, source, riskLevel, scamType,

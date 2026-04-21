@@ -117,7 +117,7 @@ public class HistoryActivity extends AppCompatActivity {
             emptyStateText.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
             summaryContainer.setVisibility(View.VISIBLE);
-            recyclerView.setAdapter(new HistoryAdapter(filtered));
+            recyclerView.setAdapter(new HistoryAdapter(filtered, getSupportFragmentManager()));
         }
     }
 

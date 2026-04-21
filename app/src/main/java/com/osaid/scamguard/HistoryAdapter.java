@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
@@ -18,9 +19,11 @@ import java.util.Locale;
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder> {
 
     private final List<ScanRecord> records;
+    private final FragmentManager fragmentManager;
 
-    public HistoryAdapter(List<ScanRecord> records) {
+    public HistoryAdapter(List<ScanRecord> records, FragmentManager fragmentManager) {
         this.records = records;
+        this.fragmentManager = fragmentManager;
     }
 
     @NonNull
@@ -72,6 +75,11 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
                 ContextCompat.getColor(holder.itemView.getContext(), colorRes));
         holder.riskLevel.setBackgroundResource(badgeRes);
         holder.riskIcon.setImageResource(iconRes);
+
+        holder.itemView.setOnClickListener(v -> {
+            ScanDetailDialog dialog = ScanDetailDialog.newInstance(record);
+            dialog.show(fragmentManager, "scan_detail");
+        });
     }
 
     @Override

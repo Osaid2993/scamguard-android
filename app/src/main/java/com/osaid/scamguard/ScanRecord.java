@@ -24,12 +24,20 @@ public class ScanRecord {
     // When the scan was performed
     public long timestamp;
 
+    // Full original message for the modal detail view
+    public String fullMessage;
+
+    // Red flags as a single string, separated by newlines
+    public String redFlags;
+
     public ScanRecord(String messageSnippet, String riskLevel, String scamType,
-                      String source, long timestamp) {
+                      String source, long timestamp, String fullMessage, String redFlags) {
         this.messageSnippet = messageSnippet;
         this.riskLevel = riskLevel;
         this.scamType = scamType;
         this.source = source;
         this.timestamp = timestamp;
+        this.fullMessage = fullMessage;
+        this.redFlags = redFlags;
     }
 }

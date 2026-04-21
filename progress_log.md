@@ -192,3 +192,10 @@ Build History screen filter chips and summary cards.
 
 ### Next step
 Continue refining the UI and UX, await tutor confirmation on AI approach.
+
+- Updated Room entity (ScanRecord) to store the full message and red flags alongside the existing snippet, and bumped the database version with destructive migration.
+- Built a modal detail card (ScanDetailDialog) that appears when a history item is tapped. The modal centres on screen with a dimmed background, showing the full message in monospace, a risk-coloured accent bar, risk icon, verdict badge, confidence percentage with animated bar, red flags with count, and Share/Report/Close action buttons. Tap outside or Close to dismiss.
+- Added a "View details" pill button to each history card to indicate tappability.
+
+### Next step
+Continue refining the UI and UX, await tutor confirmation on AI approach.
