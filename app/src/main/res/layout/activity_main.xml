@@ -337,13 +337,10 @@
                 android:paddingEnd="12dp"
                 android:paddingBottom="10dp">
 
-                <TextView
-                    android:id="@+id/charCountText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0 chars"
-                    android:textSize="12sp"
-                    android:textColor="@color/text_muted" />
+                <com.osaid.scamguard.CharCountRing
+                    android:id="@+id/charCountRing"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp" />
 
                 <View
                     android:layout_width="0dp"
@@ -388,7 +385,7 @@
             <TextView
                 android:id="@+id/pasteClipboardButton"
                 android:layout_width="wrap_content"
-                android:layout_height="52dp"
+                android:layout_height="58dp"
                 android:text="Paste"
                 android:textColor="@color/accent"
                 android:textAllCaps="false"
@@ -407,7 +404,7 @@
             <TextView
                 android:id="@+id/analyzeButton"
                 android:layout_width="0dp"
-                android:layout_height="52dp"
+                android:layout_height="58dp"
                 android:layout_weight="1"
                 android:text="Scan Message"
                 android:textColor="@color/bg_base"
@@ -416,12 +413,10 @@
                 android:textAllCaps="false"
                 android:gravity="center"
                 android:background="@drawable/bg_button_primary"
-                android:drawableStart="@drawable/ic_scan"
-                android:drawablePadding="10dp"
-                android:paddingStart="24dp"
-                android:paddingEnd="24dp"
                 android:clickable="true"
-                android:focusable="true" />
+                android:focusable="true"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         // Start with muted scan button
         analyzeButton.setBackgroundResource(R.drawable.bg_button_primary_disabled);
         analyzeButton.setTextColor(ContextCompat.getColor(this, R.color.text_muted));
+        analyzeButton.setText("Paste a message to scan");
 
         // Check if we arrived from the Scam Library with a pre-filled example
         String prefill = getIntent().getStringExtra("prefill_message");
@@ -117,14 +118,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Live character count updates as the user types or pastes
-        TextView charCountText = findViewById(R.id.charCountText);
+        CharCountRing charCountRing = findViewById(R.id.charCountRing);
         messageEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                charCountText.setText(s.length() + " chars");
+                charCountRing.setCharCount(s.length());
                 // Show clear button only when there is text
                 clearMessageButton.setVisibility(s.length() > 0 ? View.VISIBLE : View.GONE);
 
@@ -132,10 +133,12 @@ public class MainActivity extends AppCompatActivity {
                 if (s.length() > 0) {
                     analyzeButton.setBackgroundResource(R.drawable.bg_button_primary);
                     analyzeButton.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.bg_base));
+                    analyzeButton.setText("Scan with AI");
                     startShimmer(analyzeButton);
                 } else {
                     analyzeButton.setBackgroundResource(R.drawable.bg_button_primary_disabled);
                     analyzeButton.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.text_muted));
+                    analyzeButton.setText("Paste a message to scan");
                     stopShimmer();
                     analyzeButton.setAlpha(1.0f); // Reset alpha when disabled
                 }

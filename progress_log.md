@@ -204,6 +204,8 @@ Continue refining the UI and UX, await tutor confirmation on AI approach.
 
 - Added a search bar to the Scam Library screen with live filtering by scam type tags.
 - Added a muted X clear button in the search bar that appears when typing and hides when empty. Added "No results for '...'" message when search matches nothing.
+- Made the scan button dynamic: shows "Paste a message to scan" in muted state when empty, switches to "Scan with AI" on bright teal when text is present.
+- Replaced the text-based character counter with a custom circular ring view. The arc fills smoothly as the user types, turns amber at 70% and red at 90% of the 500-char limit.
 
 ### Next step
 Continue refining UI and UX, await tutor confirmation on AI approach.
