@@ -199,3 +199,11 @@ Continue refining the UI and UX, await tutor confirmation on AI approach.
 
 ### Next step
 Continue refining the UI and UX, await tutor confirmation on AI approach.
+
+## 23 April 2026
+
+- Added a search bar to the Scam Library screen with live filtering by scam type tags.
+- Added a muted X clear button in the search bar that appears when typing and hides when empty. Added "No results for '...'" message when search matches nothing.
+
+### Next step
+Continue refining UI and UX, await tutor confirmation on AI approach.

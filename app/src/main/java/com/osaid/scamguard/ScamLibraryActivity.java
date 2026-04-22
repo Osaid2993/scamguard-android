@@ -2,7 +2,12 @@ package com.osaid.scamguard;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +22,48 @@ public class ScamLibraryActivity extends AppCompatActivity {
         // Back button returns to main screen
         ImageButton backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(v -> finish());
+
+        // Search UI elements
+        EditText searchInput = findViewById(R.id.scamSearchInput);
+        LinearLayout cardsContainer = findViewById(R.id.cardsContainer);
+        TextView searchClearButton = findViewById(R.id.searchClearButton);
+        TextView noResultsText = findViewById(R.id.noResultsText);
+
+        searchClearButton.setOnClickListener(v -> {
+            searchInput.setText("");
+        });
+
+        searchInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String query = s.toString().toLowerCase().trim();
+
+                searchClearButton.setVisibility(query.isEmpty() ? View.GONE : View.VISIBLE);
+
+                int visibleCount = 0;
+                for (int i = 0; i < cardsContainer.getChildCount(); i++) {
+                    View child = cardsContainer.getChildAt(i);
+                    if (child instanceof LinearLayout && child.getTag() != null) {
+                        boolean matches = query.isEmpty() || child.getTag().toString().contains(query);
+                        child.setVisibility(matches ? View.VISIBLE : View.GONE);
+                        if (matches) visibleCount++;
+                    }
+                }
+
+                if (visibleCount == 0 && !query.isEmpty()) {
+                    noResultsText.setText("No results for '" + s.toString().trim() + "'");
+                    noResultsText.setVisibility(View.VISIBLE);
+                } else {
+                    noResultsText.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
 
         // Each Try Example button sends a realistic scam message back to MainActivity
         setupExampleButton(
