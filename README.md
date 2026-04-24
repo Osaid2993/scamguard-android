@@ -2,7 +2,7 @@
 
 Private AI-powered scam analysis for Android.
 
-ScamGuard helps users check suspicious SMS, email, marketplace, and social media messages by combining a rule-based detection engine with on-device AI explanation. The app runs entirely on the user's device, keeping message content private and supporting offline use.
+ScamGuard helps users check suspicious SMS, email, marketplace, and social media messages by combining a rule-based detection engine with AI-powered explanation using Gemma 2. The prototype uses a local hybrid architecture where the AI model runs on the development machine via Ollama, communicating over localhost. No message data reaches the internet.
 
 Built as a High Distinction prototype for SIT305 Mobile Application Development at Deakin University (Trimester 1, 2026).
 
