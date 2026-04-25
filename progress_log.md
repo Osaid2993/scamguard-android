@@ -218,3 +218,12 @@ Continue refining UI and UX, await tutor confirmation on AI approach.
 - Discussed the AI deployment constraint and proposed local hybrid setup as a practical prototype solution.
 - Received confirmation that a local hybrid Gemma setup is acceptable for the prototype.
 - Was advised to explain this clearly in the final presentation.
+
+## 26 April 2026
+
+- Built the AI integration pipeline: PromptBuilder for structured prompts with safety constraints, ScamAnalyser interface for swappable backends, and OllamaAnalyser calling Gemma 2B via localhost.
+- Wired AI into the results screen with loading state and graceful fallback if the AI fails.
+- Added INTERNET permission and cleartext traffic flag for the localhost connection.
+
+### Next step
+Test AI across all scam types and tighten prompt.
