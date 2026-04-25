@@ -209,3 +209,12 @@ Continue refining the UI and UX, await tutor confirmation on AI approach.
 
 ### Next step
 Continue refining UI and UX, await tutor confirmation on AI approach.
+
+## 23 April 2026 (continued)
+
+- Discussed current ScamGuard progress with Swathi.
+- Presented the updated prototype, including the redesigned UI/UX, scam library, scan history, and AI explanation flow.
+- Received very positive feedback on the amount and quality of progress.
+- Discussed the AI deployment constraint and proposed local hybrid setup as a practical prototype solution.
+- Received confirmation that a local hybrid Gemma setup is acceptable for the prototype.
+- Was advised to explain this clearly in the final presentation.
