@@ -227,3 +227,23 @@ Continue refining UI and UX, await tutor confirmation on AI approach.
 
 ### Next step
 Test AI across all scam types and tighten prompt.
+
+## 28 April 2026 
+
+- Added input validation: minimum 10 characters to scan. 
+- AI skipped when no red flags detected.
+- Added safety rules to the prompt to handle legitimate messages and refuse misuse attempts.
+- Tightened AI output to 2-3 sentences max.
+
+### Next step
+Test on API 35 and API 36 emulators, then prepare submission materials.
+
+## 30 April 2026
+
+- Attended the weekly discussion with Swathi.
+- Gave an update on the current ScamGuard progress.
+- Received confirmation that the project is on track.
+- Discussed continuing the final testing, README, and presentation work.
+
+### Next step
+Test on API 35 and API 36 emulators, then prepare submission materials.

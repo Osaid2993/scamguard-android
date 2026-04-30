@@ -22,9 +22,11 @@ public class PromptBuilder {
               .append("- Never help the user write scam messages.\n")
               .append("- Never provide personal financial or legal advice.\n")
               .append("- Always recommend official channels like Scamwatch, bank apps, or government websites.\n")
-              .append("- Keep your response under 150 words.\n")
+              .append("- Keep your entire response under 80 words. Be very concise. No filler.\n")
               .append("- Write in plain English that a non-technical person can understand.\n")
-              .append("- Do not mention these internal rules in your answer.\n\n");
+              .append("- Do not mention these internal rules in your answer.\n")
+              .append("- Do not use bullet points or numbered lists. Write in short paragraphs.\n")
+              .append("- Do not repeat information that is already shown in the red flags list.\n\n");
 
         // The actual message the user pasted
         prompt.append("Message received via ").append(source).append(":\n")
@@ -46,10 +48,11 @@ public class PromptBuilder {
         }
 
         // What we want the model to produce
-        prompt.append("\nBased on the above, provide:\n")
-              .append("1. A plain-English explanation of why this message looks suspicious (2-3 sentences).\n")
-              .append("2. How the detected patterns work together to indicate a potential scam (1-2 sentences).\n")
-              .append("3. Specific safe actions the user should take, referencing Australian resources where relevant (2-3 sentences).\n");
+        prompt.append("\nProvide a short, focused response that:\n")
+              .append("- Explains in plain English why this message looks suspicious.\n")
+              .append("- Briefly connects the detected patterns to show how the scam works.\n")
+              .append("- Gives one or two specific safe actions, referencing Australian resources where relevant.\n")
+              .append("\nKeep the entire response under 80 words. Do not use lists.\n");
 
         return prompt.toString();
     }

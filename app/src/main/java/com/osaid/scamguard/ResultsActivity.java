@@ -285,6 +285,15 @@ public class ResultsActivity extends AppCompatActivity {
         riskBadgeContainer.setBackgroundResource(badgeBackground);
         riskIconView.setImageResource(riskIcon);
 
+        scamTypeTextView.setText(scamType);
+
+        if (redFlags.length() == 0) {
+            redFlags.append("• No obvious scam indicators detected from the current rule-based check");
+        }
+
+        redFlagsTextView.setText(redFlags.toString().trim());
+        safeGuidanceTextView.setText(getGuidance(scamType, riskLevel));
+
         // Save this analysis to the local Room database
         String snippet = message.length() > 80
                 ? message.substring(0, 80) + "..."
@@ -299,85 +308,6 @@ public class ResultsActivity extends AppCompatActivity {
             ScamGuardDatabase.getInstance(this).scanRecordDao().insert(record);
         });
 
-        // Pulse entrance animation on the risk icon
-        riskIconView.setScaleX(0.5f);
-        riskIconView.setScaleY(0.5f);
-        riskIconView.setAlpha(0f);
-
-        riskIconView.animate()
-                .alpha(1f)
-                .scaleX(1f)
-                .scaleY(1f)
-                .setDuration(600)
-                .setInterpolator(new android.view.animation.OvershootInterpolator(1.5f))
-                .start();
-
-        // Continuous pulse on the risk icon (3 times)
-        android.animation.ObjectAnimator pulseX = android.animation.ObjectAnimator.ofFloat(
-                riskIconView, "scaleX", 1f, 1.15f, 1f);
-        pulseX.setDuration(1200);
-        pulseX.setRepeatCount(3);
-        pulseX.setStartDelay(700);
-        pulseX.start();
-
-        android.animation.ObjectAnimator pulseY = android.animation.ObjectAnimator.ofFloat(
-                riskIconView, "scaleY", 1f, 1.15f, 1f);
-        pulseY.setDuration(1200);
-        pulseY.setRepeatCount(3);
-        pulseY.setStartDelay(700);
-        pulseY.start();
-
-        scamTypeTextView.setText(scamType);
-
-        if (redFlags.length() == 0) {
-            redFlags.append("• No obvious scam indicators detected from the current rule-based check");
-        }
-
-        redFlagsTextView.setText(redFlags.toString().trim());
-        safeGuidanceTextView.setText(getGuidance(scamType, riskLevel));
-
-        // Map risk score to a meaningful confidence percentage
-        int confidencePercent;
-        if (riskScore >= 10) {
-            confidencePercent = 95;
-        } else if (riskScore >= 8) {
-            confidencePercent = 85;
-        } else if (riskScore >= 7) {
-            confidencePercent = 75;
-        } else if (riskScore >= 5) {
-            confidencePercent = 60;
-        } else if (riskScore >= 4) {
-            confidencePercent = 45;
-        } else if (riskScore >= 2) {
-            confidencePercent = 25;
-        } else {
-            confidencePercent = 10;
-        }
-
-        confidenceTextView.setText(confidencePercent + "% confidence");
-
-        // Animate the bar fill from 0 to the target width
-        confidenceBarFill.setBackgroundColor(ContextCompat.getColor(this, riskColor));
-
-        // Delay the animation slightly so the layout is measured first
-        confidenceBarFill.getLayoutParams().width = 0;
-        confidenceBarFill.requestLayout();
-
-        confidenceBarFill.postDelayed(() -> {
-            int parentWidth = ((FrameLayout) confidenceBarFill.getParent()).getWidth();
-            int targetWidth = (parentWidth * confidencePercent) / 100;
-
-            android.animation.ValueAnimator animator =
-                    android.animation.ValueAnimator.ofInt(0, targetWidth);
-            animator.setDuration(1000);
-            animator.setInterpolator(new android.view.animation.DecelerateInterpolator());
-            animator.addUpdateListener(animation -> {
-                confidenceBarFill.getLayoutParams().width = (int) animation.getAnimatedValue();
-                confidenceBarFill.requestLayout();
-            });
-            animator.start();
-        }, 300);
-
         // Request AI explanation using the rule engine findings
         requestAiExplanation(message, source, riskLevel, scamType,
                 redFlags.toString().trim());
@@ -386,6 +316,24 @@ public class ResultsActivity extends AppCompatActivity {
     private void requestAiExplanation(String message, String source,
                                       String riskLevel, String scamType,
                                       String redFlagsText) {
+
+        // Skip AI if the message is too short to analyse meaningfully
+        if (message.length() < 10) {
+            aiExplanationTextView.setText(
+                    "Message too short for AI analysis. Try pasting a longer message.");
+            aiExplanationTextView.setTextColor(
+                    ContextCompat.getColor(this, R.color.text_muted));
+            return;
+        }
+
+        // Skip AI if no red flags were detected (likely not a scam)
+        if (redFlagsText.contains("No obvious scam indicators")) {
+            aiExplanationTextView.setText(
+                    "No suspicious patterns were detected. The message appears to be safe based on the current rule-based check, but always verify unusual messages carefully.");
+            aiExplanationTextView.setTextColor(
+                    ContextCompat.getColor(this, R.color.risk_minimal));
+            return;
+        }
 
         // Show the loading spinner while the AI processes
         aiLoadingSpinner.setVisibility(View.VISIBLE);
