@@ -35,7 +35,7 @@ Dark teal theme with a custom colour system, animated splash screen with shield 
 | AI Model | Gemma 2 2B via Ollama (local hybrid for prototype) |
 | Local Database | Room (AndroidX) |
 | Min SDK | API 24 (Android 7.0) |
-| Target SDK | API 35 (Android 15), API 36 (Android 16)  |
+| Target SDK | API 35 (Android 15) |
 | Compile SDK | API 35 |
 
 
