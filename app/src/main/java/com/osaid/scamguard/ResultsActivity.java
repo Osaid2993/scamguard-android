@@ -283,7 +283,81 @@ public class ResultsActivity extends AppCompatActivity {
         riskLevelTextView.setText(riskLevel);
         riskLevelTextView.setTextColor(ContextCompat.getColor(this, riskColor));
         riskBadgeContainer.setBackgroundResource(badgeBackground);
+
         riskIconView.setImageResource(riskIcon);
+
+        // Bounce-in animation on the risk icon
+        riskIconView.setScaleX(0.5f);
+        riskIconView.setScaleY(0.5f);
+        riskIconView.setAlpha(0f);
+
+        riskIconView.animate()
+                .alpha(1f)
+                .scaleX(1f)
+                .scaleY(1f)
+                .setDuration(600)
+                .setInterpolator(new android.view.animation.OvershootInterpolator(1.5f))
+                .start();
+
+        // Pulse 3 times then stop
+        android.animation.AnimatorSet pulseSet = new android.animation.AnimatorSet();
+        android.animation.ObjectAnimator pulseX = android.animation.ObjectAnimator.ofFloat(
+                riskIconView, "scaleX", 1f, 1.15f, 1f);
+        pulseX.setDuration(1200);
+        pulseX.setRepeatCount(3);
+        pulseX.setStartDelay(700);
+
+        android.animation.ObjectAnimator pulseY = android.animation.ObjectAnimator.ofFloat(
+                riskIconView, "scaleY", 1f, 1.15f, 1f);
+        pulseY.setDuration(1200);
+        pulseY.setRepeatCount(3);
+        pulseY.setStartDelay(700);
+
+        pulseSet.playTogether(pulseX, pulseY);
+        pulseSet.start();
+
+        // Confidence bar calculation
+        int confidencePercent;
+        if (riskScore >= 10) {
+            confidencePercent = 95;
+        } else if (riskScore >= 8) {
+            confidencePercent = 85;
+        } else if (riskScore >= 7) {
+            confidencePercent = 75;
+        } else if (riskScore >= 5) {
+            confidencePercent = 60;
+        } else if (riskScore >= 4) {
+            confidencePercent = 45;
+        } else if (riskScore >= 2) {
+            confidencePercent = 25;
+        } else {
+            confidencePercent = 10;
+        }
+
+        confidenceTextView.setText(confidencePercent + "% confidence");
+        confidenceBarFill.setBackgroundColor(ContextCompat.getColor(this, riskColor));
+
+        // Animate the confidence bar
+        confidenceBarFill.getLayoutParams().width = 0;
+        confidenceBarFill.requestLayout();
+
+        riskBadgeContainer.post(() -> {
+            confidenceBarFill.postDelayed(() -> {
+                int parentWidth = ((FrameLayout) confidenceBarFill.getParent()).getWidth();
+                if (parentWidth == 0) return;
+                int targetWidth = (parentWidth * confidencePercent) / 100;
+
+                android.animation.ValueAnimator barAnimator =
+                        android.animation.ValueAnimator.ofInt(0, targetWidth);
+                barAnimator.setDuration(1000);
+                barAnimator.setInterpolator(new android.view.animation.DecelerateInterpolator());
+                barAnimator.addUpdateListener(animation -> {
+                    confidenceBarFill.getLayoutParams().width = (int) animation.getAnimatedValue();
+                    confidenceBarFill.requestLayout();
+                });
+                barAnimator.start();
+            }, 500);
+        });
 
         scamTypeTextView.setText(scamType);
 

@@ -247,3 +247,10 @@ Test on API 35 and API 36 emulators, then prepare submission materials.
 
 ### Next step
 Test on API 35 and API 36 emulators, then prepare submission materials.
+
+## 6 May 2026
+
+- Fixed confidence bar animation and risk icon pulse that were missing from ResultsActivity. Tested and confirmed working on both API 35 and API 36 emulators.
+
+### Next step
+Take screenshots on both emulators for submission evidence, then prepare presentation.
