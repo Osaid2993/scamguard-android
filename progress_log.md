@@ -254,3 +254,7 @@ Test on API 35 and API 36 emulators, then prepare submission materials.
 
 ### Next step
 Take screenshots on both emulators for submission evidence, then prepare presentation.
+
+## 6 May 2026 (continued)
+
+- Added a privacy statement to the main screen.
