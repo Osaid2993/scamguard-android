@@ -29,7 +29,7 @@ Dark teal theme with a custom colour system, animated splash screen with shield 
 
 | Component | Technology |
 |-----------|------------|
-| IDE | Android Studio (Panda 1 / 2025.3.1 or later) |
+| IDE | Android Studio Panda 2 (2025.3.2) |
 | Language | Java |
 | UI Framework | Android XML layouts with Material 3 components |
 | AI Model | Gemma 2 2B via Ollama (local hybrid for prototype) |
@@ -82,8 +82,8 @@ The rule engine results display immediately. The AI explanation loads asynchrono
 
 ### Step 1: Clone the repository
 ```bash
-git clone https://github.com/osaidbahabri/ScamGuard.git
-cd ScamGuard
+git clone https://github.com/Osaid2993/scamguard-android.git
+cd scamguard-android
 ```
 
 ### Step 2: Open in Android Studio
