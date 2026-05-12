@@ -121,9 +121,18 @@ Select your emulator and click Run. The app will launch with the animated splash
 
 The prototype has been tested on:
 - **API 35 emulator** (Android 15) — full functionality verified
-- **API 36 emulator** (Android 16) — full functionality verified, predictive back navigation confirmed working via finish()
+- **API 36 emulator** (Android 16) — full functionality verified
   
 *Note: Weekly tutor discussion notes are included inside progress_log.md.*
+
+## Screenshots
+
+The `/screenshots/` directory includes:
+- `API35/` — screenshots of the main screen and key app flows tested on Android 15.
+- `API36/` — screenshots of the main screen and key app flows tested on Android 16.
+- `before_after/` — screenshots showing the UI/UX progress from the early prototype to the final version.
+
+Key flows include the guided scan flow, results screen, Scam Library, and Scan History.
 
 ### Android 16 Back Navigation
 The app uses `finish()` for all back navigation, which is fully compatible with Android 16's predictive back API. No opt-out or custom back handling is required.
