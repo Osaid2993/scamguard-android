@@ -31,7 +31,7 @@
         android:id="@+id/splashTagline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Private on-device scam analysis"
+        android:text="Private AI-powered scam analysis"
         android:textSize="14sp"
         android:textColor="@color/text_secondary"
         android:alpha="0"
