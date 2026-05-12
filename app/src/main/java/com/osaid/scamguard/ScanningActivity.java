@@ -106,7 +106,7 @@ public class ScanningActivity extends AppCompatActivity {
                 dots[step].setBackgroundColor(
                         ContextCompat.getColor(this, R.color.accent));
                 dots[step].requestLayout();
-            }, i * 550L);
+            }, i * 800L);
         }
 
         // Navigate to results after all steps complete
@@ -123,7 +123,7 @@ public class ScanningActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-        }, 2500L);
+        }, 3800L);
     }
 
     @Override
