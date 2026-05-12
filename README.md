@@ -123,6 +123,8 @@ Select your emulator and click Run. The app will launch with the animated splash
 The prototype has been tested on:
 - **API 35 emulator** (Android 15) — full functionality verified
 - **API 36 emulator** (Android 16) — full functionality verified, predictive back navigation confirmed working via finish()
+  
+*Note: Weekly tutor discussion notes are included inside progress_log.md.*
 
 ### Android 16 Back Navigation
 The app uses `finish()` for all back navigation, which is fully compatible with Android 16's predictive back API. No opt-out or custom back handling is required.
