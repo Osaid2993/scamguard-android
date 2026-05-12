@@ -9,21 +9,20 @@ Built as a High Distinction prototype for SIT305 Mobile Application Development 
 
 ## Features
 
-**Guided Scam Analysis**
-Users select a message source (SMS, Email, Social Media), tag what feels suspicious (urgency, links, money requests, OTP, unknown sender), paste the message, and tap Scan. The app analyses the message through a dual-engine architecture: a deterministic rule engine for fast pattern detection and Gemma 2 2B for contextual AI explanation.
+**Guided Scam Analysis**  
+Users choose a message source, select suspicion tags, paste a message, and scan it. ScamGuard uses a rule engine for fast detection and Gemma 2 2B for AI explanation.
 
-**Intelligent Results**
-The results screen presents a colour-coded risk verdict badge with a pulsing icon and animated confidence bar, the original message with suspicious phrases highlighted in bold red using SpannableString, a list of detected red flags, an AI-generated plain-English explanation of why the message is suspicious, and safe action guidance referencing Australian resources like Scamwatch.
+**Intelligent Results**  
+The results screen shows a risk verdict, confidence bar, highlighted suspicious phrases, red flags, AI explanation, and safe action guidance.
 
-**Scam Library**
-An educational screen with six common scam patterns (bank impersonation, fake delivery, government/tax, prize/reward, OTP fraud, marketplace scams). Each card includes a description and a "Try Example" button that sends a realistic scam message back to the main screen for analysis. Includes a live search bar with filtering.
+**Scam Library**  
+A learning screen with six common scam types, short explanations, searchable cards, and “Try Example” messages.
 
-**Scan History**
-A dashboard showing past analyses stored locally using Room. Includes colour-coded summary count cards, filter chips (All, High, Medium, Low, Minimal), relative timestamps, and a modal detail card that overlays with the full message, red flags, confidence bar, and Share/Report actions.
+**Scan History**  
+Past scans are saved locally using Room. Users can filter results, view summary counts, and open each scan in a detail view.
 
-**Visual Identity**
-Dark teal theme with a custom colour system, animated splash screen with shield scale-up, dual-ring scanning animation with pulsing shield icon, dynamic scan button states, circular character counter, and consistent icon-led card layouts across all screens.
-
+**Visual Identity**  
+Dark teal theme with animated splash screen, scanning animation, dynamic scan button, character counter, icons, and consistent card layouts.
 
 ## Technology Stack
 
